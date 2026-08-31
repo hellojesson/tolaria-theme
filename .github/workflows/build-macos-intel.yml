@@ -1,0 +1,90 @@
+name: Build macOS Intel Theme Preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/pluggable-theme-v2026-08-19
+
+permissions:
+  contents: read
+
+concurrency:
+  group: macos-intel-theme-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_OPTIONS: --max-old-space-size=4096
+
+jobs:
+  build-macos-intel:
+    name: Build Intel macOS packages
+    runs-on: macos-15-intel
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Rust Intel target
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-apple-darwin
+
+      - name: Install project dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Intel macOS app and DMG
+        run: >
+          pnpm tauri build
+          --target x86_64-apple-darwin
+          --bundles app,dmg
+          --config
+          '{"productName":"TolariaThemePreview","identifier":"com.hellojesson.tolariatheme.preview","bundle":{"createUpdaterArtifacts":false,"macOS":{"signingIdentity":"-"}},"plugins":{"updater":{"endpoints":[]}}}'
+
+      - name: Prepare downloadable packages
+        run: |
+          mkdir -p release
+
+          tar -czf \
+            release/TolariaThemePreview_macOS_Intel.app.tar.gz \
+            -C src-tauri/target/x86_64-apple-darwin/release/bundle/macos \
+            TolariaThemePreview.app
+
+          cp \
+            src-tauri/target/x86_64-apple-darwin/release/bundle/dmg/*.dmg \
+            release/TolariaThemePreview_macOS_Intel.dmg
+
+          cd release
+
+          shasum -a 256 \
+            TolariaThemePreview_macOS_Intel.app.tar.gz \
+            TolariaThemePreview_macOS_Intel.dmg \
+            > SHA256SUMS.txt
+
+      - name: Upload Intel macOS packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: TolariaThemePreview-macOS-Intel
+          path: release/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
+
