@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Nie ŭdalosia impartavać fajł temy. Pravieřcie, što heta sapraŭdnaja tema Tolaria sa svietłym i ciomnym varyjantami.",
   "settings.themeExtension.importUnavailable": "Impart tem dastupny ŭ nastolnaj prahramie Tolaria.",
   "settings.themeExtension.dialogTitle": "Impartavać temu Tolaria",
-  "settings.themeExtension.fileFilter": "Tema Tolaria"
+  "settings.themeExtension.fileFilter": "Tema Tolaria",
+  "settings.editorFont.label": "Šryft tekstu natatak",
+  "settings.editorFont.description": "Vybierycie lakalny šryft dla farmatavanych natatak. Tolaria nie spampoŭvaje i nie ŭbudoŭvaje šryfty z fajlaŭ temaŭ.",
+  "settings.editorFont.selectAria": "Šryft tekstu natatak",
+  "settings.editorFont.followTheme": "Pavodle temy",
+  "settings.editorFont.system": "Sistemny pa zmaŭčanni",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Inšy lakalny šryft",
+  "settings.editorFont.customNameAria": "Nazva siamiejstva lakalnaha šryftu",
+  "settings.editorFont.customNamePlaceholder": "Napryklad: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Rekamendacyja temy: {name}",
+  "settings.editorFont.selectedLocalFont": "Lakalny šryft: {name}",
+  "settings.editorFont.systemSummary": "Vykarystoŭvajecca aficyjny nabor šryftoŭ Tolaria abo sistemny nabor.",
+  "settings.editorFont.available": "Ustalavany",
+  "settings.editorFont.unavailable": "Nie znojdzieny; budzie vykarystany zapasny šryft",
+  "settings.editorFont.unknown": "Niemahčyma pravieryć dastupnasć"
 }

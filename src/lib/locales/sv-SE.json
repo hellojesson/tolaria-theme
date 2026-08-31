@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Temafilen kunde inte importeras. Kontrollera att den är ett giltigt Tolaria-tema med ljus och mörk variant.",
   "settings.themeExtension.importUnavailable": "Temaimport är tillgängligt i Tolarias skrivbordsapp.",
   "settings.themeExtension.dialogTitle": "Importera Tolaria-tema",
-  "settings.themeExtension.fileFilter": "Tolaria-tema"
+  "settings.themeExtension.fileFilter": "Tolaria-tema",
+  "settings.editorFont.label": "Teckensnitt för anteckningstext",
+  "settings.editorFont.description": "Välj ett lokalt teckensnitt för formaterade anteckningar. Tolaria hämtar eller paketerar aldrig teckensnitt från temafiler.",
+  "settings.editorFont.selectAria": "Teckensnitt för anteckningstext",
+  "settings.editorFont.followTheme": "Följ temat",
+  "settings.editorFont.system": "Systemstandard",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Anpassat lokalt teckensnitt",
+  "settings.editorFont.customNameAria": "Namn på lokal teckensnittsfamilj",
+  "settings.editorFont.customNamePlaceholder": "Till exempel: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Temats rekommendation: {name}",
+  "settings.editorFont.selectedLocalFont": "Lokalt teckensnitt: {name}",
+  "settings.editorFont.systemSummary": "Använder Tolarias officiella teckensnitt eller systemets teckensnitt.",
+  "settings.editorFont.available": "Installerat",
+  "settings.editorFont.unavailable": "Hittades inte; ett reservteckensnitt används",
+  "settings.editorFont.unknown": "Tillgängligheten kunde inte kontrolleras"
 }

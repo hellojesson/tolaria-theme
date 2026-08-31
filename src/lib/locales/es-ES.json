@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "No se pudo importar este archivo de tema. Comprueba que sea un tema de Tolaria válido con variantes clara y oscura.",
   "settings.themeExtension.importUnavailable": "La importación de temas está disponible en la aplicación de escritorio de Tolaria.",
   "settings.themeExtension.dialogTitle": "Importar tema de Tolaria",
-  "settings.themeExtension.fileFilter": "Tema de Tolaria"
+  "settings.themeExtension.fileFilter": "Tema de Tolaria",
+  "settings.editorFont.label": "Fuente del cuerpo de las notas",
+  "settings.editorFont.description": "Elige una fuente local para las notas de texto enriquecido. Tolaria nunca descarga ni incluye fuentes desde archivos de tema.",
+  "settings.editorFont.selectAria": "Fuente del cuerpo de las notas",
+  "settings.editorFont.followTheme": "Seguir el tema",
+  "settings.editorFont.system": "Predeterminada del sistema",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Fuente local personalizada",
+  "settings.editorFont.customNameAria": "Nombre de la familia de fuente local",
+  "settings.editorFont.customNamePlaceholder": "Por ejemplo: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Recomendación del tema: {name}",
+  "settings.editorFont.selectedLocalFont": "Fuente local: {name}",
+  "settings.editorFont.systemSummary": "Usa la pila de fuentes oficial de Tolaria o la del sistema.",
+  "settings.editorFont.available": "Instalada",
+  "settings.editorFont.unavailable": "No detectada; se usará una fuente alternativa",
+  "settings.editorFont.unknown": "No se pudo comprobar la disponibilidad"
 }

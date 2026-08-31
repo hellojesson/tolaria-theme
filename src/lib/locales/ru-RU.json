@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Не удалось импортировать файл темы. Убедитесь, что это допустимая тема Tolaria со светлым и тёмным вариантами.",
   "settings.themeExtension.importUnavailable": "Импорт тем доступен в настольном приложении Tolaria.",
   "settings.themeExtension.dialogTitle": "Импорт темы Tolaria",
-  "settings.themeExtension.fileFilter": "Тема Tolaria"
+  "settings.themeExtension.fileFilter": "Тема Tolaria",
+  "settings.editorFont.label": "Шрифт текста заметок",
+  "settings.editorFont.description": "Выберите локальный шрифт для форматированных заметок. Tolaria не скачивает и не встраивает шрифты из файлов тем.",
+  "settings.editorFont.selectAria": "Шрифт текста заметок",
+  "settings.editorFont.followTheme": "Следовать теме",
+  "settings.editorFont.system": "Системный по умолчанию",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Другой локальный шрифт",
+  "settings.editorFont.customNameAria": "Название семейства локального шрифта",
+  "settings.editorFont.customNamePlaceholder": "Например: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Рекомендация темы: {name}",
+  "settings.editorFont.selectedLocalFont": "Локальный шрифт: {name}",
+  "settings.editorFont.systemSummary": "Используется официальный набор шрифтов Tolaria или системный набор.",
+  "settings.editorFont.available": "Установлен",
+  "settings.editorFont.unavailable": "Не обнаружен; будет использован резервный шрифт",
+  "settings.editorFont.unknown": "Не удалось проверить доступность"
 }

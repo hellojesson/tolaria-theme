@@ -3,6 +3,9 @@
   "id": "blue-topaz",
   "name": "Blue Topaz",
   "author": "Tolaria theme extension, adapted from Blue Topaz",
+  "typography": {
+    "editorFontPreset": "pingfang-sc"
+  },
   "variants": {
     "light": {
       "--surface-app": "#F7FBFC",

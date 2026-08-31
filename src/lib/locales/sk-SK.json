@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Tento súbor témy sa nepodarilo importovať. Skontrolujte, či ide o platnú tému Tolaria so svetlým a tmavým variantom.",
   "settings.themeExtension.importUnavailable": "Import tém je k dispozícii v počítačovej aplikácii Tolaria.",
   "settings.themeExtension.dialogTitle": "Importovať tému Tolaria",
-  "settings.themeExtension.fileFilter": "Téma Tolaria"
+  "settings.themeExtension.fileFilter": "Téma Tolaria",
+  "settings.editorFont.label": "Písmo textu poznámky",
+  "settings.editorFont.description": "Vyberte lokálne písmo pre formátované poznámky. Tolaria nesťahuje ani nepribaľuje písma zo súborov tém.",
+  "settings.editorFont.selectAria": "Písmo textu poznámky",
+  "settings.editorFont.followTheme": "Podľa témy",
+  "settings.editorFont.system": "Predvolené systémové",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Vlastné lokálne písmo",
+  "settings.editorFont.customNameAria": "Názov rodiny lokálneho písma",
+  "settings.editorFont.customNamePlaceholder": "Napríklad: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Odporúčanie témy: {name}",
+  "settings.editorFont.selectedLocalFont": "Lokálne písmo: {name}",
+  "settings.editorFont.systemSummary": "Používa oficiálnu sadu písiem Tolaria alebo systémovú sadu.",
+  "settings.editorFont.available": "Nainštalované",
+  "settings.editorFont.unavailable": "Nezistené; použije sa náhradné písmo",
+  "settings.editorFont.unknown": "Dostupnosť sa nepodarilo overiť"
 }

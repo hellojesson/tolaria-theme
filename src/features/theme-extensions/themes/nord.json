@@ -3,6 +3,9 @@
   "id": "nord",
   "name": "Nord",
   "author": "Tolaria theme extension, based on Nord",
+  "typography": {
+    "editorFontPreset": "source-han-sans-sc"
+  },
   "variants": {
     "light": {
       "--surface-app": "#ECEFF4",

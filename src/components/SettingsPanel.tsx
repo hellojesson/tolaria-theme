@@ -72,6 +72,7 @@ import { trackSettingsPreferenceChanges, trackTelemetryConsentChange } from './s
 import { useSettingsPanelAutofocus, useSettingsPanelFocusTrap } from './useSettingsPanelFocus'
 import { registerMacosDismissableEscapeSurface } from '../utils/macosDismissableEscapeSurface'
 import { ThemeExtensionSettings } from '../features/theme-extensions/ThemeExtensionSettings'
+import { EditorFontSettings } from '../features/theme-extensions/EditorFontSettings'
 
 interface SettingsPanelProps {
   open: boolean
@@ -832,12 +833,17 @@ function AppearanceSettingsSection({
   setThemeMode,
 }: Pick<SettingsBodyProps, 't' | 'themeMode' | 'setThemeMode'>) {
   return (
-    <SettingsRow label={t('settings.theme.label')} description={t('settings.appearance.description')}>
-      <div className="space-y-2">
-        <ThemeModeControl value={themeMode} onChange={setThemeMode} t={t} />
-        <ThemeExtensionSettings t={t} />
-      </div>
-    </SettingsRow>
+    <>
+      <SettingsRow label={t('settings.theme.label')} description={t('settings.appearance.description')}>
+        <div className="space-y-2">
+          <ThemeModeControl value={themeMode} onChange={setThemeMode} t={t} />
+          <ThemeExtensionSettings t={t} />
+        </div>
+      </SettingsRow>
+      <SettingsRow label={t('settings.editorFont.label')} description={t('settings.editorFont.description')}>
+        <EditorFontSettings t={t} />
+      </SettingsRow>
+    </>
   )
 }
 

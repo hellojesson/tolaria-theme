@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Impossible d'importer ce fichier de thème. Vérifiez qu'il s'agit d'un thème Tolaria valide avec des variantes claire et sombre.",
   "settings.themeExtension.importUnavailable": "L'importation de thèmes est disponible dans l'application de bureau Tolaria.",
   "settings.themeExtension.dialogTitle": "Importer un thème Tolaria",
-  "settings.themeExtension.fileFilter": "Thème Tolaria"
+  "settings.themeExtension.fileFilter": "Thème Tolaria",
+  "settings.editorFont.label": "Police du corps des notes",
+  "settings.editorFont.description": "Choisissez une police locale pour les notes enrichies. Tolaria ne télécharge ni n'intègre de polices provenant des fichiers de thème.",
+  "settings.editorFont.selectAria": "Police du corps des notes",
+  "settings.editorFont.followTheme": "Suivre le thème",
+  "settings.editorFont.system": "Valeur système par défaut",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Police locale personnalisée",
+  "settings.editorFont.customNameAria": "Nom de la famille de police locale",
+  "settings.editorFont.customNamePlaceholder": "Par exemple : LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Recommandation du thème : {name}",
+  "settings.editorFont.selectedLocalFont": "Police locale : {name}",
+  "settings.editorFont.systemSummary": "Utilise la pile de polices officielle de Tolaria ou celle du système.",
+  "settings.editorFont.available": "Installée",
+  "settings.editorFont.unavailable": "Non détectée ; une police de secours sera utilisée",
+  "settings.editorFont.unknown": "Disponibilité impossible à vérifier"
 }

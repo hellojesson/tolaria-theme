@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "File tema ini tidak dapat diimpor. Pastikan file tersebut merupakan tema Tolaria yang valid dengan varian terang dan gelap.",
   "settings.themeExtension.importUnavailable": "Impor tema tersedia di aplikasi desktop Tolaria.",
   "settings.themeExtension.dialogTitle": "Impor tema Tolaria",
-  "settings.themeExtension.fileFilter": "Tema Tolaria"
+  "settings.themeExtension.fileFilter": "Tema Tolaria",
+  "settings.editorFont.label": "Font isi catatan",
+  "settings.editorFont.description": "Pilih font lokal untuk catatan teks kaya. Tolaria tidak pernah mengunduh atau menyertakan font dari file tema.",
+  "settings.editorFont.selectAria": "Font isi catatan",
+  "settings.editorFont.followTheme": "Ikuti tema",
+  "settings.editorFont.system": "Default sistem",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Font lokal khusus",
+  "settings.editorFont.customNameAria": "Nama keluarga font lokal",
+  "settings.editorFont.customNamePlaceholder": "Contoh: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Rekomendasi tema: {name}",
+  "settings.editorFont.selectedLocalFont": "Font lokal: {name}",
+  "settings.editorFont.systemSummary": "Menggunakan tumpukan font resmi Tolaria atau font sistem.",
+  "settings.editorFont.available": "Terpasang",
+  "settings.editorFont.unavailable": "Tidak terdeteksi; font cadangan akan digunakan",
+  "settings.editorFont.unknown": "Ketersediaan tidak dapat diperiksa"
 }

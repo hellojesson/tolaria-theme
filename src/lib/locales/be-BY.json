@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Не ўдалося імпартаваць файл тэмы. Праверце, што гэта сапраўдная тэма Tolaria са светлым і цёмным варыянтамі.",
   "settings.themeExtension.importUnavailable": "Імпарт тэм даступны ў настольнай праграме Tolaria.",
   "settings.themeExtension.dialogTitle": "Імпартаваць тэму Tolaria",
-  "settings.themeExtension.fileFilter": "Тэма Tolaria"
+  "settings.themeExtension.fileFilter": "Тэма Tolaria",
+  "settings.editorFont.label": "Шрыфт тэксту нататак",
+  "settings.editorFont.description": "Выберыце лакальны шрыфт для фарматаваных нататак. Tolaria не спампоўвае і не ўбудоўвае шрыфты з файлаў тэм.",
+  "settings.editorFont.selectAria": "Шрыфт тэксту нататак",
+  "settings.editorFont.followTheme": "Паводле тэмы",
+  "settings.editorFont.system": "Сістэмны па змаўчанні",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Іншы лакальны шрыфт",
+  "settings.editorFont.customNameAria": "Назва сямейства лакальнага шрыфту",
+  "settings.editorFont.customNamePlaceholder": "Напрыклад: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Рэкамендацыя тэмы: {name}",
+  "settings.editorFont.selectedLocalFont": "Лакальны шрыфт: {name}",
+  "settings.editorFont.systemSummary": "Выкарыстоўваецца афіцыйны набор шрыфтоў Tolaria або сістэмны набор.",
+  "settings.editorFont.available": "Усталяваны",
+  "settings.editorFont.unavailable": "Не знойдзены; будзе выкарыстаны запасны шрыфт",
+  "settings.editorFont.unknown": "Немагчыма праверыць даступнасць"
 }

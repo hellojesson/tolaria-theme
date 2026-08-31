@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Không thể nhập tệp chủ đề này. Hãy kiểm tra đây là chủ đề Tolaria hợp lệ có cả biến thể sáng và tối.",
   "settings.themeExtension.importUnavailable": "Tính năng nhập chủ đề có trong ứng dụng Tolaria dành cho máy tính.",
   "settings.themeExtension.dialogTitle": "Nhập chủ đề Tolaria",
-  "settings.themeExtension.fileFilter": "Chủ đề Tolaria"
+  "settings.themeExtension.fileFilter": "Chủ đề Tolaria",
+  "settings.editorFont.label": "Phông chữ nội dung ghi chú",
+  "settings.editorFont.description": "Chọn phông chữ cục bộ cho ghi chú văn bản có định dạng. Tolaria không tải xuống hoặc đóng gói phông chữ từ tệp chủ đề.",
+  "settings.editorFont.selectAria": "Phông chữ nội dung ghi chú",
+  "settings.editorFont.followTheme": "Theo chủ đề",
+  "settings.editorFont.system": "Mặc định hệ thống",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Phông chữ cục bộ tùy chỉnh",
+  "settings.editorFont.customNameAria": "Tên họ phông chữ cục bộ",
+  "settings.editorFont.customNamePlaceholder": "Ví dụ: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Đề xuất của chủ đề: {name}",
+  "settings.editorFont.selectedLocalFont": "Phông chữ cục bộ: {name}",
+  "settings.editorFont.systemSummary": "Sử dụng bộ phông chữ chính thức của Tolaria hoặc của hệ thống.",
+  "settings.editorFont.available": "Đã cài đặt",
+  "settings.editorFont.unavailable": "Không phát hiện; sẽ dùng phông chữ dự phòng",
+  "settings.editorFont.unknown": "Không thể kiểm tra tính khả dụng"
 }

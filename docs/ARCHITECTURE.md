@@ -274,7 +274,7 @@ The main Tauri window also persists its last normal size and screen position in 
 
 Tauri setup keeps launch-time filesystem and subprocess work off the window creation critical path. Legacy `~/Laputa` housekeeping and the initial persisted-vault MCP bridge sync run on named background threads, so large legacy vaults, stale active-vault paths, or slow process startup cannot beachball the macOS app before React mounts. React still resyncs the bridge from `useVaultSwitcher` after the persisted selection loads, and no selected vault stops the bridge. AI-agent CLI availability probing is also off the first-paint path: the renderer defers `get_ai_agents_status` until an idle/timeout tick, skips it for disabled AI surfaces and secondary windows, falls back to missing-agent onboarding state if the status IPC does not settle promptly, and the Rust command fans per-agent CLI checks across Tokio's blocking pool with per-agent timeouts. The HTML bootstrap ships a static, non-interactive app-shell skeleton inside `#root` so the WebView paints Tolaria chrome before the React module graph and lazy app route finish loading. React keeps that same captured shell visible through the initial vault hydration, avoiding a second skeleton during startup; the mounted app's detailed pane skeletons remain available for later vault switches and reloads. The bootstrap also installs a Tauri-only one-shot watchdog: React reports readiness from an effect after the root commits, and if that readiness signal never arrives the WebView reloads once instead of leaving macOS users in an inert rendered shell.
 
-The startup document has no external font or stylesheet requests. Vite packages Inter, IBM Plex Mono, and JetBrains Mono from Fontsource with the renderer bundle so offline and firewalled launches cannot block first paint, while online and offline sessions retain identical typography.
+The startup document has no external font or stylesheet requests. Vite packages Inter, IBM Plex Mono, and JetBrains Mono from Fontsource with the renderer bundle so offline and firewalled launches cannot block first paint, while the official typography remains identical online and offline. An optional installation-local editor-font preference can select an already installed font without adding a network request or bundled asset.
 
 Desktop startup registers `tauri-plugin-deep-link` and `tauri-plugin-single-instance` before setup so `tolaria://` links can focus the existing main window and deliver URL events to the renderer. `tauri.conf.json` declares the `tolaria` scheme for bundled desktop builds; Windows and Linux also run `register_all()` as a runtime repair path, while macOS relies on bundle registration.
 
@@ -547,8 +547,9 @@ flowchart TD
 The app uses internal app-owned light and dark themes with an optional System preference (see [ADR-0081](adr/0081-internal-light-dark-theme-runtime.md) and [ADR-0112](adr/0112-system-theme-mode.md)). This is not the old vault-authored theming system from ADR-0013: users choose a mode, but themes are owned by the app.
 
 1. **Global CSS variables** (`src/index.css`): Semantic app colors, borders, surfaces, and interaction states. Bridged to Tailwind v4 via `@theme inline`.
-2. **Editor theme** (`src/theme.json`): BlockNote-specific typography. Flattened to CSS vars by `useEditorTheme`; editor colors resolve through the same semantic app variables.
+2. **Editor theme** (`src/theme.json`): BlockNote-specific typography. Flattened to CSS vars by `useEditorTheme`; editor colors resolve through the same semantic app variables. The editor font delegates through the extension-owned `--tolaria-editor-font-family` variable and otherwise uses the corrected bundled `Inter Variable` fallback.
 3. **Theme runtime**: Applies resolved `light` / `dark` values to `data-theme` and the shadcn-compatible `.dark` class before React consumers render, with a localStorage mirror to avoid startup flash when dark mode or System-on-dark is selected. Settings and command-palette theme actions both write the same installation-local `settings.theme_mode` value; `system` subscribes to `prefers-color-scheme` changes at runtime while explicit Light/Dark remain overrides.
+4. **Theme extension runtime**: Applies allowlisted color tokens and an optional local-font preset after the official mode resolves. Explicit editor-font preferences override theme recommendations; imported packages cannot contain CSS, URLs, or font assets. See [ADR-0179](adr/0179-local-only-editor-font-theme-overlay.md).
 
 ## Localization
 
@@ -960,7 +961,7 @@ No Redux or global context. State lives in the root `App.tsx` and custom hooks:
 | `useTabManagement` | Navigation history, note switching | Note navigation lifecycle |
 | `useVaultSwitcher` | `vaultPath`, `extraVaults` | Vault switching |
 | `useTheme` | Editor theme CSS vars and theme-mode bridge | Editor typography and app theme runtime |
-| `useThemeExtensionRuntime` | Namespaced local theme package selection | Safe color-token overlay that follows the resolved official light/dark mode |
+| `useThemeExtensionRuntime` | Namespaced local theme package and editor-font selection | Safe semantic overlay that follows the resolved official light/dark mode and applies local-only typography preferences |
 | `useCliAiAgent` | `messages`, `status`, tool actions | Selected AI agent conversation backed by the shared session pipeline and vault permission mode |
 | `useAutoSync` | Sync interval, pull/push state | Git auto-sync |
 | `useAutoGit` | Last activity timestamp, idle/inactive checkpoint triggers | Automatic commit/push checkpoints |

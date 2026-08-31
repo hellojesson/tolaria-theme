@@ -6,13 +6,19 @@ import {
   parseThemePackageJson,
   type ThemePackage,
 } from './themePackage'
+import {
+  EDITOR_FONT_CUSTOM_NAME_STORAGE_KEY,
+  EDITOR_FONT_PREFERENCE_CHANGE_EVENT,
+  EDITOR_FONT_PREFERENCE_STORAGE_KEY,
+  applyStoredEditorFont,
+} from './editorFontPreferences'
 
 export const OFFICIAL_THEME_EXTENSION_ID = 'official'
 export const THEME_EXTENSION_SELECTION_STORAGE_KEY = 'tolaria.theme-extension.selection.v1'
 export const THEME_EXTENSION_IMPORTS_STORAGE_KEY = 'tolaria.theme-extension.imports.v1'
 export const THEME_EXTENSION_CHANGE_EVENT = 'tolaria:theme-extension-change'
 
-type ThemeStorage = Pick<Storage, 'getItem' | 'setItem'>
+type ThemeStorage = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>
 type ThemeDocument = Pick<Document, 'documentElement'>
 
 function safeGet(storage: ThemeStorage, key: string): string | null {
@@ -121,6 +127,7 @@ export function applyStoredThemeExtension(
   const id = readThemeExtensionSelection(storage)
   const theme = id === OFFICIAL_THEME_EXTENSION_ID ? null : findThemePackage(storage, id)
   applyThemeExtension(documentObject, theme, mode)
+  applyStoredEditorFont(documentObject, storage, theme?.typography?.editorFontPreset)
   return theme?.id ?? OFFICIAL_THEME_EXTENSION_ID
 }
 
@@ -130,12 +137,16 @@ export function subscribeToThemeExtensionChanges(listener: () => void): () => vo
     if (
       event.key === THEME_EXTENSION_SELECTION_STORAGE_KEY
       || event.key === THEME_EXTENSION_IMPORTS_STORAGE_KEY
+      || event.key === EDITOR_FONT_PREFERENCE_STORAGE_KEY
+      || event.key === EDITOR_FONT_CUSTOM_NAME_STORAGE_KEY
     ) listener()
   }
   window.addEventListener(THEME_EXTENSION_CHANGE_EVENT, listener)
+  window.addEventListener(EDITOR_FONT_PREFERENCE_CHANGE_EVENT, listener)
   window.addEventListener('storage', handleStorage)
   return () => {
     window.removeEventListener(THEME_EXTENSION_CHANGE_EVENT, listener)
+    window.removeEventListener(EDITOR_FONT_PREFERENCE_CHANGE_EVENT, listener)
     window.removeEventListener('storage', handleStorage)
   }
 }

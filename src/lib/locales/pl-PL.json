@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Nie udało się zaimportować pliku motywu. Sprawdź, czy jest to prawidłowy motyw Tolaria z jasnym i ciemnym wariantem.",
   "settings.themeExtension.importUnavailable": "Importowanie motywów jest dostępne w aplikacji komputerowej Tolaria.",
   "settings.themeExtension.dialogTitle": "Importuj motyw Tolaria",
-  "settings.themeExtension.fileFilter": "Motyw Tolaria"
+  "settings.themeExtension.fileFilter": "Motyw Tolaria",
+  "settings.editorFont.label": "Czcionka treści notatki",
+  "settings.editorFont.description": "Wybierz lokalną czcionkę dla notatek z tekstem sformatowanym. Tolaria nie pobiera ani nie dołącza czcionek z plików motywów.",
+  "settings.editorFont.selectAria": "Czcionka treści notatki",
+  "settings.editorFont.followTheme": "Zgodnie z motywem",
+  "settings.editorFont.system": "Domyślna systemowa",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Własna czcionka lokalna",
+  "settings.editorFont.customNameAria": "Nazwa lokalnej rodziny czcionek",
+  "settings.editorFont.customNamePlaceholder": "Na przykład: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Zalecenie motywu: {name}",
+  "settings.editorFont.selectedLocalFont": "Czcionka lokalna: {name}",
+  "settings.editorFont.systemSummary": "Używa oficjalnego zestawu czcionek Tolaria lub zestawu systemowego.",
+  "settings.editorFont.available": "Zainstalowana",
+  "settings.editorFont.unavailable": "Nie wykryto; zostanie użyta czcionka zastępcza",
+  "settings.editorFont.unknown": "Nie można sprawdzić dostępności"
 }

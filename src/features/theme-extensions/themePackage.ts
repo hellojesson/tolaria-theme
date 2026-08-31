@@ -1,3 +1,8 @@
+import {
+  isThemeEditorFontPresetId,
+  type ThemeEditorFontPresetId,
+} from './themeFontContract'
+
 export const THEME_PACKAGE_SCHEMA_VERSION = 1 as const
 
 export const SUPPORTED_THEME_TOKENS = [
@@ -86,11 +91,16 @@ export interface ThemePackage {
   id: string
   name: string
   author?: string
+  typography?: {
+    editorFontPreset?: ThemeEditorFontPresetId
+  }
   variants: {
     light: ThemeVariant
     dark: ThemeVariant
   }
 }
+
+const SUPPORTED_TYPOGRAPHY_FIELDS = new Set(['editorFontPreset'])
 
 const REQUIRED_THEME_TOKENS = [
   '--surface-app',
@@ -138,6 +148,21 @@ function validateVariant(value: unknown, mode: 'light' | 'dark'): ThemeVariant {
   return value as ThemeVariant
 }
 
+function validateTypography(value: unknown): void {
+  if (!isRecord(value)) throw new Error('Theme typography must be an object.')
+  for (const key of Object.keys(value)) {
+    if (!SUPPORTED_TYPOGRAPHY_FIELDS.has(key)) {
+      throw new Error(`Theme typography field ${key} is unsupported.`)
+    }
+  }
+  if (
+    value.editorFontPreset !== undefined
+    && !isThemeEditorFontPresetId(value.editorFontPreset)
+  ) {
+    throw new Error('Theme editor font preset is unsupported.')
+  }
+}
+
 export function parseThemePackage(value: unknown): ThemePackage {
   if (!isRecord(value)) throw new Error('Theme package must be a JSON object.')
   if (value.schemaVersion !== THEME_PACKAGE_SCHEMA_VERSION) {
@@ -150,6 +175,7 @@ export function parseThemePackage(value: unknown): ThemePackage {
   }
   requireShortText(value.name, 'name', 80)
   if (value.author !== undefined) requireShortText(value.author, 'author', 80)
+  if (value.typography !== undefined) validateTypography(value.typography)
   if (!isRecord(value.variants)) throw new Error('Theme variants are required.')
 
   validateVariant(value.variants.light, 'light')

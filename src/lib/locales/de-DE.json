@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Diese Theme-Datei konnte nicht importiert werden. Prüfe, ob sie ein gültiges Tolaria-Theme mit heller und dunkler Variante ist.",
   "settings.themeExtension.importUnavailable": "Der Theme-Import ist in der Tolaria-Desktop-App verfügbar.",
   "settings.themeExtension.dialogTitle": "Tolaria-Theme importieren",
-  "settings.themeExtension.fileFilter": "Tolaria-Theme"
+  "settings.themeExtension.fileFilter": "Tolaria-Theme",
+  "settings.editorFont.label": "Schrift für Notiztext",
+  "settings.editorFont.description": "Wähle eine lokale Schrift für Rich-Text-Notizen. Tolaria lädt keine Schriften aus Theme-Dateien herunter und bündelt sie nicht.",
+  "settings.editorFont.selectAria": "Schrift für Notiztext",
+  "settings.editorFont.followTheme": "Theme folgen",
+  "settings.editorFont.system": "Systemstandard",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Eigene lokale Schrift",
+  "settings.editorFont.customNameAria": "Name der lokalen Schriftfamilie",
+  "settings.editorFont.customNamePlaceholder": "Zum Beispiel: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Theme-Empfehlung: {name}",
+  "settings.editorFont.selectedLocalFont": "Lokale Schrift: {name}",
+  "settings.editorFont.systemSummary": "Verwendet Tolarias offiziellen oder den System-Schriftstapel.",
+  "settings.editorFont.available": "Installiert",
+  "settings.editorFont.unavailable": "Nicht erkannt; Ersatzschrift wird verwendet",
+  "settings.editorFont.unknown": "Verfügbarkeit konnte nicht geprüft werden"
 }

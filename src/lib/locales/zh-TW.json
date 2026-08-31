@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "無法匯入此主題檔案。請確認它是包含淺色與深色配置的有效 Tolaria 主題。",
   "settings.themeExtension.importUnavailable": "主題匯入僅適用於 Tolaria 桌面應用程式。",
   "settings.themeExtension.dialogTitle": "匯入 Tolaria 主題",
-  "settings.themeExtension.fileFilter": "Tolaria 主題"
+  "settings.themeExtension.fileFilter": "Tolaria 主題",
+  "settings.editorFont.label": "筆記內文字體",
+  "settings.editorFont.description": "為富文字筆記選擇本機字體。Tolaria 絕不會從主題檔下載或綑綁字體。",
+  "settings.editorFont.selectAria": "筆記內文字體",
+  "settings.editorFont.followTheme": "跟隨主題",
+  "settings.editorFont.system": "系統預設",
+  "settings.editorFont.pingfang": "蘋方 / PingFang SC",
+  "settings.editorFont.sourceHanSans": "思源黑體 / Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "思源宋體 / Source Han Serif SC",
+  "settings.editorFont.custom": "自訂本機字體",
+  "settings.editorFont.customNameAria": "本機字型家族名稱",
+  "settings.editorFont.customNamePlaceholder": "例如：LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "主題建議：{name}",
+  "settings.editorFont.selectedLocalFont": "本機字體：{name}",
+  "settings.editorFont.systemSummary": "使用 Tolaria 官方或系統字體堆疊。",
+  "settings.editorFont.available": "已安裝",
+  "settings.editorFont.unavailable": "未偵測到，將使用後備字體",
+  "settings.editorFont.unknown": "無法檢查字體是否可用"
 }

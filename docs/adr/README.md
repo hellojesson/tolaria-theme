@@ -231,3 +231,6 @@ proposed → active → superseded
 | [0175](0175-mcp-vault-lifecycle-uses-app-registry.md) | MCP vault lifecycle uses the app registry | active |
 | [0176](0176-bundled-font-assets-for-offline-startup.md) | Bundled font assets for offline startup | active |
 | [0173](0173-future-calendar-version-recovery.md) | Future calendar version rejection and recovery | active |
+| [0177](0177-writable-fallback-for-app-config.md) | Writable fallback for app config | active |
+| [0178](0178-pluggable-theme-extension-overlay.md) | Pluggable theme extension overlay | superseded → [0179](0179-local-only-editor-font-theme-overlay.md) |
+| [0179](0179-local-only-editor-font-theme-overlay.md) | Local-only editor font preferences in the theme overlay | active |

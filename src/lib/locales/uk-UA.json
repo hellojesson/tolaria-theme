@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Не вдалося імпортувати файл теми. Переконайтеся, що це дійсна тема Tolaria зі світлим і темним варіантами.",
   "settings.themeExtension.importUnavailable": "Імпорт тем доступний у настільному застосунку Tolaria.",
   "settings.themeExtension.dialogTitle": "Імпортувати тему Tolaria",
-  "settings.themeExtension.fileFilter": "Тема Tolaria"
+  "settings.themeExtension.fileFilter": "Тема Tolaria",
+  "settings.editorFont.label": "Шрифт тексту нотаток",
+  "settings.editorFont.description": "Виберіть локальний шрифт для форматованих нотаток. Tolaria не завантажує й не вбудовує шрифти з файлів тем.",
+  "settings.editorFont.selectAria": "Шрифт тексту нотаток",
+  "settings.editorFont.followTheme": "Відповідно до теми",
+  "settings.editorFont.system": "Системний за замовчуванням",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Власний локальний шрифт",
+  "settings.editorFont.customNameAria": "Назва сімейства локального шрифту",
+  "settings.editorFont.customNamePlaceholder": "Наприклад: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Рекомендація теми: {name}",
+  "settings.editorFont.selectedLocalFont": "Локальний шрифт: {name}",
+  "settings.editorFont.systemSummary": "Використовується офіційний набір шрифтів Tolaria або системний набір.",
+  "settings.editorFont.available": "Установлено",
+  "settings.editorFont.unavailable": "Не виявлено; буде використано резервний шрифт",
+  "settings.editorFont.unknown": "Не вдалося перевірити доступність"
 }

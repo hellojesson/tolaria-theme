@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "このテーマファイルをインポートできませんでした。ライトとダークのバリエーションを含む有効な Tolaria テーマか確認してください。",
   "settings.themeExtension.importUnavailable": "テーマのインポートは Tolaria デスクトップアプリで利用できます。",
   "settings.themeExtension.dialogTitle": "Tolaria テーマをインポート",
-  "settings.themeExtension.fileFilter": "Tolaria テーマ"
+  "settings.themeExtension.fileFilter": "Tolaria テーマ",
+  "settings.editorFont.label": "ノート本文のフォント",
+  "settings.editorFont.description": "リッチテキストノートにローカルフォントを使用します。Tolaria はテーマファイルからフォントをダウンロードまたは同梱しません。",
+  "settings.editorFont.selectAria": "ノート本文のフォント",
+  "settings.editorFont.followTheme": "テーマに従う",
+  "settings.editorFont.system": "システム既定",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "カスタムローカルフォント",
+  "settings.editorFont.customNameAria": "ローカルフォントファミリー名",
+  "settings.editorFont.customNamePlaceholder": "例：LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "テーマの推奨：{name}",
+  "settings.editorFont.selectedLocalFont": "ローカルフォント：{name}",
+  "settings.editorFont.systemSummary": "Tolaria の公式またはシステムフォントスタックを使用します。",
+  "settings.editorFont.available": "インストール済み",
+  "settings.editorFont.unavailable": "検出されません。代替フォントを使用します",
+  "settings.editorFont.unknown": "利用可否を確認できません"
 }

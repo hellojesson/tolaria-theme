@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "이 테마 파일을 가져올 수 없습니다. 라이트 및 다크 변형이 포함된 올바른 Tolaria 테마인지 확인하세요.",
   "settings.themeExtension.importUnavailable": "테마 가져오기는 Tolaria 데스크톱 앱에서 사용할 수 있습니다.",
   "settings.themeExtension.dialogTitle": "Tolaria 테마 가져오기",
-  "settings.themeExtension.fileFilter": "Tolaria 테마"
+  "settings.themeExtension.fileFilter": "Tolaria 테마",
+  "settings.editorFont.label": "노트 본문 글꼴",
+  "settings.editorFont.description": "서식 있는 텍스트 노트에 로컬 글꼴을 선택합니다. Tolaria는 테마 파일에서 글꼴을 다운로드하거나 번들로 제공하지 않습니다.",
+  "settings.editorFont.selectAria": "노트 본문 글꼴",
+  "settings.editorFont.followTheme": "테마 따르기",
+  "settings.editorFont.system": "시스템 기본값",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "사용자 지정 로컬 글꼴",
+  "settings.editorFont.customNameAria": "로컬 글꼴 패밀리 이름",
+  "settings.editorFont.customNamePlaceholder": "예: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "테마 권장 글꼴: {name}",
+  "settings.editorFont.selectedLocalFont": "로컬 글꼴: {name}",
+  "settings.editorFont.systemSummary": "Tolaria 공식 또는 시스템 글꼴 스택을 사용합니다.",
+  "settings.editorFont.available": "설치됨",
+  "settings.editorFont.unavailable": "감지되지 않음. 대체 글꼴을 사용합니다",
+  "settings.editorFont.unknown": "사용 가능 여부를 확인할 수 없음"
 }

@@ -1072,5 +1072,22 @@
   "settings.themeExtension.importError": "Não foi possível importar este ficheiro de tema. Verifique se é um tema Tolaria válido com variantes clara e escura.",
   "settings.themeExtension.importUnavailable": "A importação de temas está disponível na aplicação Tolaria para computador.",
   "settings.themeExtension.dialogTitle": "Importar tema Tolaria",
-  "settings.themeExtension.fileFilter": "Tema Tolaria"
+  "settings.themeExtension.fileFilter": "Tema Tolaria",
+  "settings.editorFont.label": "Tipo de letra do corpo das notas",
+  "settings.editorFont.description": "Escolha um tipo de letra local para notas de texto formatado. O Tolaria nunca transfere nem inclui tipos de letra de ficheiros de tema.",
+  "settings.editorFont.selectAria": "Tipo de letra do corpo das notas",
+  "settings.editorFont.followTheme": "Seguir o tema",
+  "settings.editorFont.system": "Predefinição do sistema",
+  "settings.editorFont.pingfang": "PingFang SC",
+  "settings.editorFont.sourceHanSans": "Source Han Sans SC",
+  "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.custom": "Tipo de letra local personalizado",
+  "settings.editorFont.customNameAria": "Nome da família do tipo de letra local",
+  "settings.editorFont.customNamePlaceholder": "Por exemplo: LXGW WenKai",
+  "settings.editorFont.themeRecommendation": "Recomendação do tema: {name}",
+  "settings.editorFont.selectedLocalFont": "Tipo de letra local: {name}",
+  "settings.editorFont.systemSummary": "Utiliza a pilha de tipos de letra oficial do Tolaria ou a do sistema.",
+  "settings.editorFont.available": "Instalado",
+  "settings.editorFont.unavailable": "Não detetado; será utilizado um tipo de letra alternativo",
+  "settings.editorFont.unknown": "Não foi possível verificar a disponibilidade"
 }

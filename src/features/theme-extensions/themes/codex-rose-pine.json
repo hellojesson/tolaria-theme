@@ -3,6 +3,9 @@
   "id": "codex-rose-pine",
   "name": "Codex Rosé Pine",
   "author": "Tolaria theme extension, based on Rosé Pine",
+  "typography": {
+    "editorFontPreset": "source-han-serif-sc"
+  },
   "variants": {
     "light": {
       "--surface-app": "#FAF4ED",
