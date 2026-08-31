@@ -34,7 +34,7 @@ jobs:
 
       - name: Install Node.js
         uses: actions/setup-node@v7
-        with
+        with:
           node-version: "22"
           cache: pnpm
 
