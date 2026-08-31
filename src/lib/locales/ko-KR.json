@@ -1061,5 +1061,16 @@
   "locale.ukUA": "우크라이나어",
   "locale.svSE": "스웨덴어",
   "locale.skSK": "슬로바키아어",
-  "telemetryConsent.saveError": "Tolaria가 이 선택을 저장할 수 없습니다. 계정이 앱 설정을 쓸 수 있는지 확인한 다음 다시 시도하세요."
+  "telemetryConsent.saveError": "Tolaria가 이 선택을 저장할 수 없습니다. 계정이 앱 설정을 쓸 수 있는지 확인한 다음 다시 시도하세요.",
+  "settings.themeExtension.label": "사용자 지정 테마",
+  "settings.themeExtension.description": "확장 테마는 Tolaria의 라이트, 다크 또는 시스템 기본 모드를 따릅니다.",
+  "settings.themeExtension.official": "공식 기본값",
+  "settings.themeExtension.selectAria": "사용자 지정 테마",
+  "settings.themeExtension.import": "가져오기",
+  "settings.themeExtension.importing": "가져오는 중…",
+  "settings.themeExtension.importSuccess": "{name} 테마를 가져와 적용했습니다.",
+  "settings.themeExtension.importError": "이 테마 파일을 가져올 수 없습니다. 라이트 및 다크 변형이 포함된 올바른 Tolaria 테마인지 확인하세요.",
+  "settings.themeExtension.importUnavailable": "테마 가져오기는 Tolaria 데스크톱 앱에서 사용할 수 있습니다.",
+  "settings.themeExtension.dialogTitle": "Tolaria 테마 가져오기",
+  "settings.themeExtension.fileFilter": "Tolaria 테마"
 }

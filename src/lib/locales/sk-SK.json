@@ -1061,5 +1061,16 @@
   "locale.ukUA": "Ukrajinčina",
   "locale.svSE": "Švédčina",
   "locale.skSK": "Slovenčina",
-  "telemetryConsent.saveError": "Tolaria nemohla uložiť tento výber. Skontrolujte, či váš účet môže zapisovať nastavenia aplikácie, a potom to skúste znova."
+  "telemetryConsent.saveError": "Tolaria nemohla uložiť tento výber. Skontrolujte, či váš účet môže zapisovať nastavenia aplikácie, a potom to skúste znova.",
+  "settings.themeExtension.label": "Vlastná téma",
+  "settings.themeExtension.description": "Témy rozšírení používajú základný režim Tolaria: Svetlý, Tmavý alebo Systémový.",
+  "settings.themeExtension.official": "Oficiálne predvolené",
+  "settings.themeExtension.selectAria": "Vlastná téma",
+  "settings.themeExtension.import": "Importovať",
+  "settings.themeExtension.importing": "Importuje sa…",
+  "settings.themeExtension.importSuccess": "Téma {name} bola importovaná a použitá.",
+  "settings.themeExtension.importError": "Tento súbor témy sa nepodarilo importovať. Skontrolujte, či ide o platnú tému Tolaria so svetlým a tmavým variantom.",
+  "settings.themeExtension.importUnavailable": "Import tém je k dispozícii v počítačovej aplikácii Tolaria.",
+  "settings.themeExtension.dialogTitle": "Importovať tému Tolaria",
+  "settings.themeExtension.fileFilter": "Téma Tolaria"
 }

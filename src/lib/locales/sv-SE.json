@@ -1061,5 +1061,16 @@
   "locale.ukUA": "Ukrainska",
   "locale.svSE": "Svenska",
   "locale.skSK": "Slovakiska",
-  "telemetryConsent.saveError": "Tolaria kunde inte spara det här valet. Kontrollera att ditt konto kan skriva sina appinställningar och försök sedan igen."
+  "telemetryConsent.saveError": "Tolaria kunde inte spara det här valet. Kontrollera att ditt konto kan skriva sina appinställningar och försök sedan igen.",
+  "settings.themeExtension.label": "Anpassat tema",
+  "settings.themeExtension.description": "Tilläggsteman följer Tolarias grundläge Ljust, Mörkt eller System.",
+  "settings.themeExtension.official": "Officiell standard",
+  "settings.themeExtension.selectAria": "Anpassat tema",
+  "settings.themeExtension.import": "Importera",
+  "settings.themeExtension.importing": "Importerar…",
+  "settings.themeExtension.importSuccess": "{name} har importerats och tillämpats.",
+  "settings.themeExtension.importError": "Temafilen kunde inte importeras. Kontrollera att den är ett giltigt Tolaria-tema med ljus och mörk variant.",
+  "settings.themeExtension.importUnavailable": "Temaimport är tillgängligt i Tolarias skrivbordsapp.",
+  "settings.themeExtension.dialogTitle": "Importera Tolaria-tema",
+  "settings.themeExtension.fileFilter": "Tolaria-tema"
 }

@@ -1061,5 +1061,16 @@
   "locale.ukUA": "Ucraniano",
   "locale.svSE": "Sueco",
   "locale.skSK": "Eslovaco",
-  "telemetryConsent.saveError": "O Tolaria não conseguiu salvar esta escolha. Verifique se a sua conta pode gravar as configurações do aplicativo e tente novamente."
+  "telemetryConsent.saveError": "O Tolaria não conseguiu salvar esta escolha. Verifique se a sua conta pode gravar as configurações do aplicativo e tente novamente.",
+  "settings.themeExtension.label": "Tema personalizado",
+  "settings.themeExtension.description": "Os temas de extensão seguem o modo base Claro, Escuro ou Sistema do Tolaria.",
+  "settings.themeExtension.official": "Padrão oficial",
+  "settings.themeExtension.selectAria": "Tema personalizado",
+  "settings.themeExtension.import": "Importar",
+  "settings.themeExtension.importing": "Importando…",
+  "settings.themeExtension.importSuccess": "{name} foi importado e aplicado.",
+  "settings.themeExtension.importError": "Não foi possível importar este arquivo de tema. Verifique se ele é um tema válido do Tolaria com variantes clara e escura.",
+  "settings.themeExtension.importUnavailable": "A importação de temas está disponível no aplicativo Tolaria para desktop.",
+  "settings.themeExtension.dialogTitle": "Importar tema do Tolaria",
+  "settings.themeExtension.fileFilter": "Tema do Tolaria"
 }

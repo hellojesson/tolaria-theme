@@ -1061,5 +1061,16 @@
   "locale.ukUA": "ウクライナ語",
   "locale.svSE": "スウェーデン語",
   "locale.skSK": "スロバキア語",
-  "telemetryConsent.saveError": "Tolariaはこの選択を保存できませんでした。アカウントがアプリの設定を書き込めることを確認してから、もう一度お試しください。"
+  "telemetryConsent.saveError": "Tolariaはこの選択を保存できませんでした。アカウントがアプリの設定を書き込めることを確認してから、もう一度お試しください。",
+  "settings.themeExtension.label": "カスタムテーマ",
+  "settings.themeExtension.description": "拡張テーマは Tolaria のライト、ダーク、またはシステムの基本モードに従います。",
+  "settings.themeExtension.official": "公式デフォルト",
+  "settings.themeExtension.selectAria": "カスタムテーマ",
+  "settings.themeExtension.import": "インポート",
+  "settings.themeExtension.importing": "インポート中…",
+  "settings.themeExtension.importSuccess": "{name} をインポートして適用しました。",
+  "settings.themeExtension.importError": "このテーマファイルをインポートできませんでした。ライトとダークのバリエーションを含む有効な Tolaria テーマか確認してください。",
+  "settings.themeExtension.importUnavailable": "テーマのインポートは Tolaria デスクトップアプリで利用できます。",
+  "settings.themeExtension.dialogTitle": "Tolaria テーマをインポート",
+  "settings.themeExtension.fileFilter": "Tolaria テーマ"
 }

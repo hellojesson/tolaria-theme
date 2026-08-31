@@ -373,6 +373,7 @@ macro_rules! app_invoke_handler {
             commands::read_text_from_clipboard,
             commands::sync_mcp_bridge_vault,
             commands::get_process_memory_snapshot,
+            commands::read_theme_extension_file,
             commands::repair_vault,
             commands::reinit_telemetry,
             commands::should_use_external_media_preview,

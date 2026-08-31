@@ -1061,5 +1061,16 @@
   "locale.ukUA": "Ukrainien",
   "locale.svSE": "Suédois",
   "locale.skSK": "Slovaque",
-  "telemetryConsent.saveError": "Tolaria n'a pas pu enregistrer ce choix. Vérifiez que votre compte peut écrire ses paramètres d'application, puis réessayez."
+  "telemetryConsent.saveError": "Tolaria n'a pas pu enregistrer ce choix. Vérifiez que votre compte peut écrire ses paramètres d'application, puis réessayez.",
+  "settings.themeExtension.label": "Thème personnalisé",
+  "settings.themeExtension.description": "Les thèmes complémentaires suivent le mode de base Clair, Sombre ou Système de Tolaria.",
+  "settings.themeExtension.official": "Valeur officielle par défaut",
+  "settings.themeExtension.selectAria": "Thème personnalisé",
+  "settings.themeExtension.import": "Importer",
+  "settings.themeExtension.importing": "Importation…",
+  "settings.themeExtension.importSuccess": "Thème {name} importé et appliqué.",
+  "settings.themeExtension.importError": "Impossible d'importer ce fichier de thème. Vérifiez qu'il s'agit d'un thème Tolaria valide avec des variantes claire et sombre.",
+  "settings.themeExtension.importUnavailable": "L'importation de thèmes est disponible dans l'application de bureau Tolaria.",
+  "settings.themeExtension.dialogTitle": "Importer un thème Tolaria",
+  "settings.themeExtension.fileFilter": "Thème Tolaria"
 }

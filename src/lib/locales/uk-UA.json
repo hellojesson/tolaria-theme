@@ -1061,5 +1061,16 @@
   "locale.ukUA": "Українська",
   "locale.svSE": "Шведська",
   "locale.skSK": "Словацька",
-  "telemetryConsent.saveError": "Tolaria не вдалося зберегти цей вибір. Перевірте, чи ваш обліковий запис може записувати налаштування програми, а потім спробуйте ще раз."
+  "telemetryConsent.saveError": "Tolaria не вдалося зберегти цей вибір. Перевірте, чи ваш обліковий запис може записувати налаштування програми, а потім спробуйте ще раз.",
+  "settings.themeExtension.label": "Власна тема",
+  "settings.themeExtension.description": "Теми-розширення відповідають базовому режиму Tolaria: світлому, темному або системному.",
+  "settings.themeExtension.official": "Офіційна тема",
+  "settings.themeExtension.selectAria": "Власна тема",
+  "settings.themeExtension.import": "Імпортувати",
+  "settings.themeExtension.importing": "Імпортування…",
+  "settings.themeExtension.importSuccess": "Тему {name} імпортовано та застосовано.",
+  "settings.themeExtension.importError": "Не вдалося імпортувати файл теми. Переконайтеся, що це дійсна тема Tolaria зі світлим і темним варіантами.",
+  "settings.themeExtension.importUnavailable": "Імпорт тем доступний у настільному застосунку Tolaria.",
+  "settings.themeExtension.dialogTitle": "Імпортувати тему Tolaria",
+  "settings.themeExtension.fileFilter": "Тема Tolaria"
 }

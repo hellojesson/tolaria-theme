@@ -1061,5 +1061,16 @@
   "locale.ukUA": "Ukraiński",
   "locale.svSE": "Szwedzki",
   "locale.skSK": "Słowacki",
-  "telemetryConsent.saveError": "Tolaria nie mogła zapisać tego wyboru. Sprawdź, czy Twoje konto może zapisywać ustawienia aplikacji, a następnie spróbuj ponownie."
+  "telemetryConsent.saveError": "Tolaria nie mogła zapisać tego wyboru. Sprawdź, czy Twoje konto może zapisywać ustawienia aplikacji, a następnie spróbuj ponownie.",
+  "settings.themeExtension.label": "Motyw niestandardowy",
+  "settings.themeExtension.description": "Motywy rozszerzeń korzystają z bazowego trybu Tolaria: jasnego, ciemnego lub systemowego.",
+  "settings.themeExtension.official": "Oficjalny domyślny",
+  "settings.themeExtension.selectAria": "Motyw niestandardowy",
+  "settings.themeExtension.import": "Importuj",
+  "settings.themeExtension.importing": "Importowanie…",
+  "settings.themeExtension.importSuccess": "Zaimportowano i zastosowano motyw {name}.",
+  "settings.themeExtension.importError": "Nie udało się zaimportować pliku motywu. Sprawdź, czy jest to prawidłowy motyw Tolaria z jasnym i ciemnym wariantem.",
+  "settings.themeExtension.importUnavailable": "Importowanie motywów jest dostępne w aplikacji komputerowej Tolaria.",
+  "settings.themeExtension.dialogTitle": "Importuj motyw Tolaria",
+  "settings.themeExtension.fileFilter": "Motyw Tolaria"
 }

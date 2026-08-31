@@ -3,10 +3,13 @@ import { act, fireEvent, render, screen, waitFor, within } from '@testing-librar
 import { SettingsPanel } from './SettingsPanel'
 import type { Settings } from '../types'
 import { THEME_MODE_STORAGE_KEY } from '../lib/themeMode'
+import { THEME_EXTENSION_SELECTION_STORAGE_KEY } from '../features/theme-extensions/themeRuntime'
+import { BUILT_IN_THEME_PACKAGES } from '../features/theme-extensions/builtInThemes'
 import type { AiAgentsStatus } from '../lib/aiAgents'
 import type { VaultOption } from './StatusBar'
 
-const { trackEventMock, registerEscapeSurfaceMock, unregisterEscapeSurfaceMock } = vi.hoisted(() => ({
+const { pickThemeExtensionFileMock, trackEventMock, registerEscapeSurfaceMock, unregisterEscapeSurfaceMock } = vi.hoisted(() => ({
+  pickThemeExtensionFileMock: vi.fn(),
   trackEventMock: vi.fn(),
   registerEscapeSurfaceMock: vi.fn(),
   unregisterEscapeSurfaceMock: vi.fn(),
@@ -14,6 +17,11 @@ const { trackEventMock, registerEscapeSurfaceMock, unregisterEscapeSurfaceMock }
 
 vi.mock('../lib/telemetry', () => ({
   trackEvent: trackEventMock,
+}))
+
+vi.mock('../features/theme-extensions/themeFileImport', () => ({
+  ThemeImportUnavailableError: class ThemeImportUnavailableError extends Error {},
+  pickThemeExtensionFile: pickThemeExtensionFileMock,
 }))
 
 vi.mock('../utils/macosDismissableEscapeSurface', () => ({
@@ -484,6 +492,44 @@ describe('SettingsPanel', () => {
     expect(screen.getByRole('radio', { name: 'Light' })).toHaveAttribute('aria-checked', 'true')
     expect(screen.getByRole('radio', { name: 'Dark' })).toHaveAttribute('aria-checked', 'false')
     expect(screen.getByRole('radio', { name: 'System' })).toHaveAttribute('aria-checked', 'false')
+  })
+
+  it('offers bundled theme extensions without changing the official color mode', () => {
+    renderOpenSettings()
+
+    const trigger = screen.getByTestId('settings-theme-extension')
+    expect(trigger).toHaveAttribute('data-value', 'official')
+
+    fireEvent.pointerDown(trigger, { button: 0, pointerType: 'mouse' })
+    expect(screen.getByRole('option', { name: 'Codex Rosé Pine' })).toBeInTheDocument()
+    expect(screen.getByRole('option', { name: 'Nord' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('option', { name: 'Blue Topaz' }))
+
+    expect(trigger).toHaveAttribute('data-value', 'blue-topaz')
+    expect(window.localStorage.getItem(THEME_EXTENSION_SELECTION_STORAGE_KEY)).toBe('blue-topaz')
+    expect(document.documentElement).toHaveAttribute('data-theme-extension', 'blue-topaz')
+    expect(screen.getByRole('radio', { name: 'Light' })).toHaveAttribute('aria-checked', 'true')
+    expect(trackEventMock).toHaveBeenCalledWith('theme_extension_selected', {
+      theme_kind: 'bundled',
+    })
+  })
+
+  it('imports, selects, and applies a valid theme configuration file', async () => {
+    pickThemeExtensionFileMock.mockResolvedValue(JSON.stringify({
+      ...BUILT_IN_THEME_PACKAGES[0],
+      id: 'team-ocean',
+      name: 'Team Ocean',
+    }))
+    renderOpenSettings()
+
+    fireEvent.click(screen.getByTestId('settings-theme-extension-import'))
+
+    await waitFor(() => {
+      expect(screen.getByTestId('settings-theme-extension')).toHaveAttribute('data-value', 'team-ocean')
+    })
+    expect(screen.getByText('Imported and applied Team Ocean.')).toBeInTheDocument()
+    expect(document.documentElement).toHaveAttribute('data-theme-extension', 'team-ocean')
+    expect(trackEventMock).toHaveBeenCalledWith('theme_extension_imported', { outcome: 'success' })
   })
 
   it('defaults the language selector to system language', () => {

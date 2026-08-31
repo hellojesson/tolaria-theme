@@ -899,6 +899,7 @@ The desktop MCP WebSocket bridge is intentionally local-only. `mcp-server/ws-bri
 |---------|-------------|
 | `get_settings` | Load app settings |
 | `save_settings` | Save app settings |
+| `read_theme_extension_file` | Read a selected regular UTF-8 JSON theme file up to 128 KB for renderer validation |
 | `load_vault_list` | Load vault list |
 | `save_vault_list` | Save vault list |
 | `get_vault_config` | Load per-vault UI config |
@@ -959,6 +960,7 @@ No Redux or global context. State lives in the root `App.tsx` and custom hooks:
 | `useTabManagement` | Navigation history, note switching | Note navigation lifecycle |
 | `useVaultSwitcher` | `vaultPath`, `extraVaults` | Vault switching |
 | `useTheme` | Editor theme CSS vars and theme-mode bridge | Editor typography and app theme runtime |
+| `useThemeExtensionRuntime` | Namespaced local theme package selection | Safe color-token overlay that follows the resolved official light/dark mode |
 | `useCliAiAgent` | `messages`, `status`, tool actions | Selected AI agent conversation backed by the shared session pipeline and vault permission mode |
 | `useAutoSync` | Sync interval, pull/push state | Git auto-sync |
 | `useAutoGit` | Last activity timestamp, idle/inactive checkpoint triggers | Automatic commit/push checkpoints |

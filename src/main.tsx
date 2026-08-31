@@ -12,6 +12,7 @@ import { FrontendReadyMarker } from './components/FrontendReadyMarker'
 import { LinuxTitlebar } from './components/LinuxTitlebar'
 import { StartupShellFallback } from './components/StartupShellFallback'
 import { applyStoredThemeMode } from './lib/themeMode'
+import { applyStoredThemeExtension } from './features/theme-extensions/themeRuntime'
 import {
   APP_COMMAND_EVENT_NAME,
   isAppCommandId,
@@ -114,6 +115,7 @@ if (isMac()) {
 }
 
 applyStoredThemeMode(document, window.localStorage)
+applyStoredThemeExtension(document, window.localStorage)
 
 function dispatchDeterministicShortcutEvent(init: AppCommandShortcutEventInit) {
   const target =

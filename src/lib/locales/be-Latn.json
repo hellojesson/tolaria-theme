@@ -1061,5 +1061,16 @@
   "editor.sheet.formula.description.vlookup": "Šukaie značennie pa viertykali.",
   "editor.sheet.formula.description.xlookup": "Šukaie značennie ŭ dyiapazonie.",
   "editor.sheet.formula.description.year": "Vylučaie hod z daty.",
-  "telemetryConsent.saveError": "Tolaria nie zmahła zachavać hety vybar. Praviercie, ci vaš ulikaŭy zapis moža zapisvać nałady prahramy, zatym pasprabujcie jašče raz."
+  "telemetryConsent.saveError": "Tolaria nie zmahła zachavać hety vybar. Praviercie, ci vaš ulikaŭy zapis moža zapisvać nałady prahramy, zatym pasprabujcie jašče raz.",
+  "settings.themeExtension.label": "Karystalnickaja tema",
+  "settings.themeExtension.description": "Temy-pašyrenni prytrymlivajucca bazavaha režymu Tolaria: svietlaha, ciomnaha albo sistemnaha.",
+  "settings.themeExtension.official": "Aficyjnaja tema",
+  "settings.themeExtension.selectAria": "Karystalnickaja tema",
+  "settings.themeExtension.import": "Impartavać",
+  "settings.themeExtension.importing": "Impartavannie…",
+  "settings.themeExtension.importSuccess": "Tema {name} impartavanaja i ŭžytaja.",
+  "settings.themeExtension.importError": "Nie ŭdalosia impartavać fajł temy. Pravieřcie, što heta sapraŭdnaja tema Tolaria sa svietłym i ciomnym varyjantami.",
+  "settings.themeExtension.importUnavailable": "Impart tem dastupny ŭ nastolnaj prahramie Tolaria.",
+  "settings.themeExtension.dialogTitle": "Impartavać temu Tolaria",
+  "settings.themeExtension.fileFilter": "Tema Tolaria"
 }

@@ -71,6 +71,7 @@ import { SETTINGS_SECTION_IDS } from './settingsSectionIds'
 import { trackSettingsPreferenceChanges, trackTelemetryConsentChange } from './settingsPreferenceTracking'
 import { useSettingsPanelAutofocus, useSettingsPanelFocusTrap } from './useSettingsPanelFocus'
 import { registerMacosDismissableEscapeSurface } from '../utils/macosDismissableEscapeSurface'
+import { ThemeExtensionSettings } from '../features/theme-extensions/ThemeExtensionSettings'
 
 interface SettingsPanelProps {
   open: boolean
@@ -832,7 +833,10 @@ function AppearanceSettingsSection({
 }: Pick<SettingsBodyProps, 't' | 'themeMode' | 'setThemeMode'>) {
   return (
     <SettingsRow label={t('settings.theme.label')} description={t('settings.appearance.description')}>
-      <ThemeModeControl value={themeMode} onChange={setThemeMode} t={t} />
+      <div className="space-y-2">
+        <ThemeModeControl value={themeMode} onChange={setThemeMode} t={t} />
+        <ThemeExtensionSettings t={t} />
+      </div>
     </SettingsRow>
   )
 }

@@ -1061,5 +1061,16 @@
   "locale.ukUA": "Ukrainisch",
   "locale.svSE": "Schwedisch",
   "locale.skSK": "Slowakisch",
-  "telemetryConsent.saveError": "Tolaria konnte diese Auswahl nicht speichern. Überprüfe, ob dein Konto seine App-Einstellungen schreiben kann, und versuche es dann erneut."
+  "telemetryConsent.saveError": "Tolaria konnte diese Auswahl nicht speichern. Überprüfe, ob dein Konto seine App-Einstellungen schreiben kann, und versuche es dann erneut.",
+  "settings.themeExtension.label": "Benutzerdefiniertes Theme",
+  "settings.themeExtension.description": "Erweiterungs-Themes folgen dem Tolaria-Basismodus Hell, Dunkel oder System.",
+  "settings.themeExtension.official": "Offizieller Standard",
+  "settings.themeExtension.selectAria": "Benutzerdefiniertes Theme",
+  "settings.themeExtension.import": "Importieren",
+  "settings.themeExtension.importing": "Wird importiert…",
+  "settings.themeExtension.importSuccess": "{name} wurde importiert und angewendet.",
+  "settings.themeExtension.importError": "Diese Theme-Datei konnte nicht importiert werden. Prüfe, ob sie ein gültiges Tolaria-Theme mit heller und dunkler Variante ist.",
+  "settings.themeExtension.importUnavailable": "Der Theme-Import ist in der Tolaria-Desktop-App verfügbar.",
+  "settings.themeExtension.dialogTitle": "Tolaria-Theme importieren",
+  "settings.themeExtension.fileFilter": "Tolaria-Theme"
 }

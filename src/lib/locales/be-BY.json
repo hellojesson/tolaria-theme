@@ -1061,5 +1061,16 @@
   "locale.ukUA": "Украінская",
   "locale.svSE": "Шведская",
   "locale.skSK": "Славацкая",
-  "telemetryConsent.saveError": "Tolaria не змагла захаваць гэты выбар. Праверце, ці можа ваш уліковы запіс запісаць налады праграмы, а потым паўтарыце спробу."
+  "telemetryConsent.saveError": "Tolaria не змагла захаваць гэты выбар. Праверце, ці можа ваш уліковы запіс запісаць налады праграмы, а потым паўтарыце спробу.",
+  "settings.themeExtension.label": "Карыстальніцкая тэма",
+  "settings.themeExtension.description": "Тэмы-пашырэнні прытрымліваюцца базавага рэжыму Tolaria: светлага, цёмнага або сістэмнага.",
+  "settings.themeExtension.official": "Афіцыйная тэма",
+  "settings.themeExtension.selectAria": "Карыстальніцкая тэма",
+  "settings.themeExtension.import": "Імпартаваць",
+  "settings.themeExtension.importing": "Імпартаванне…",
+  "settings.themeExtension.importSuccess": "Тэма {name} імпартавана і ўжыта.",
+  "settings.themeExtension.importError": "Не ўдалося імпартаваць файл тэмы. Праверце, што гэта сапраўдная тэма Tolaria са светлым і цёмным варыянтамі.",
+  "settings.themeExtension.importUnavailable": "Імпарт тэм даступны ў настольнай праграме Tolaria.",
+  "settings.themeExtension.dialogTitle": "Імпартаваць тэму Tolaria",
+  "settings.themeExtension.fileFilter": "Тэма Tolaria"
 }

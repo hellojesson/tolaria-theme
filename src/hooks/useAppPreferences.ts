@@ -17,6 +17,7 @@ import type { AiAgentsStatus } from '../lib/aiAgents'
 import { useDocumentThemeMode } from './useDocumentThemeMode'
 import { useTelemetry } from './useTelemetry'
 import { useThemeMode } from './useThemeMode'
+import { useThemeExtensionRuntime } from '../features/theme-extensions/useThemeExtensionRuntime'
 
 interface AppPreferencesConfig {
   aiAgentsStatus: AiAgentsStatus
@@ -90,6 +91,7 @@ export function useAppPreferences({
 
   useThemeMode(settings.theme_mode, settingsLoaded)
   const documentThemeMode = useDocumentThemeMode()
+  useThemeExtensionRuntime(documentThemeMode)
   const handleToggleThemeMode = useCallback(() => {
     const theme_mode = documentThemeMode === 'dark' ? 'light' : 'dark'
     void saveSettings({ ...settings, theme_mode })

@@ -1061,5 +1061,16 @@
   "locale.ukUA": "Ukraina",
   "locale.svSE": "Swedia",
   "locale.skSK": "Slovakia",
-  "telemetryConsent.saveError": "Tolaria tidak dapat menyimpan pilihan ini. Periksa apakah akun Anda dapat menulis pengaturan aplikasinya, lalu coba lagi."
+  "telemetryConsent.saveError": "Tolaria tidak dapat menyimpan pilihan ini. Periksa apakah akun Anda dapat menulis pengaturan aplikasinya, lalu coba lagi.",
+  "settings.themeExtension.label": "Tema khusus",
+  "settings.themeExtension.description": "Tema ekstensi mengikuti mode dasar Terang, Gelap, atau Sistem Tolaria.",
+  "settings.themeExtension.official": "Bawaan resmi",
+  "settings.themeExtension.selectAria": "Tema khusus",
+  "settings.themeExtension.import": "Impor",
+  "settings.themeExtension.importing": "Mengimpor…",
+  "settings.themeExtension.importSuccess": "{name} telah diimpor dan diterapkan.",
+  "settings.themeExtension.importError": "File tema ini tidak dapat diimpor. Pastikan file tersebut merupakan tema Tolaria yang valid dengan varian terang dan gelap.",
+  "settings.themeExtension.importUnavailable": "Impor tema tersedia di aplikasi desktop Tolaria.",
+  "settings.themeExtension.dialogTitle": "Impor tema Tolaria",
+  "settings.themeExtension.fileFilter": "Tema Tolaria"
 }
