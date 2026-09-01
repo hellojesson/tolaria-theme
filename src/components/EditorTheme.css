@@ -16,7 +16,7 @@
   margin: 0 auto;  /* Center the editor body */
   padding: var(--editor-padding-vertical) var(--editor-padding-horizontal);
   padding-bottom: max(var(--editor-padding-vertical), 50vh);
-  color: var(--colors-text);
+  color: var(--tolaria-editor-body-color, var(--colors-text));
   caret-color: var(--colors-cursor);
 }
 
@@ -337,6 +337,7 @@
 .editor__blocknote-container .bn-editor strong {
   font-weight: var(--tolaria-editor-strong-font-weight, var(--inline-styles-bold-font-weight));
   font-size: var(--tolaria-editor-strong-font-size, inherit);
+  font-synthesis: var(--tolaria-editor-strong-font-synthesis, inherit);
   color: var(--tolaria-editor-strong-color, var(--inline-styles-bold-color));
   letter-spacing: var(--tolaria-editor-strong-letter-spacing, normal);
 }

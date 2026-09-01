@@ -68,7 +68,7 @@ export const EDITOR_FONT_PRESETS: readonly EditorFontPreset[] = [
     id: 'kaiti-sc',
     localFontName: 'Kaiti SC',
     cssStack: "'Kaiti SC', 'STKaiti', 'KaiTi', serif",
-    typographyProfile: 'soft-calligraphic',
+    typographyProfile: 'kaiti-readable-emphasis',
   },
 ]
 

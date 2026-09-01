@@ -2,14 +2,17 @@ export const EDITOR_FONT_TYPOGRAPHY_PROFILE_IDS = [
   'official',
   'soft-calligraphic',
   'lxgw-wenkai-emphasis',
+  'kaiti-readable-emphasis',
 ] as const
 
 export type EditorFontTypographyProfileId =
   typeof EDITOR_FONT_TYPOGRAPHY_PROFILE_IDS[number]
 
 export const EDITOR_FONT_TYPOGRAPHY_CSS_VARIABLES = [
+  '--tolaria-editor-body-color',
   '--tolaria-editor-strong-font-weight',
   '--tolaria-editor-strong-font-size',
+  '--tolaria-editor-strong-font-synthesis',
   '--tolaria-editor-strong-color',
   '--tolaria-editor-strong-letter-spacing',
   '--tolaria-editor-heading-font-weight',
@@ -21,8 +24,10 @@ type TypographyVariable = typeof EDITOR_FONT_TYPOGRAPHY_CSS_VARIABLES[number]
 type StyleTarget = Pick<CSSStyleDeclaration, 'removeProperty' | 'setProperty'>
 
 const SOFT_CALLIGRAPHIC_VALUES: Readonly<Record<TypographyVariable, string>> = {
+  '--tolaria-editor-body-color': 'var(--colors-text)',
   '--tolaria-editor-strong-font-weight': '500',
   '--tolaria-editor-strong-font-size': 'inherit',
+  '--tolaria-editor-strong-font-synthesis': 'inherit',
   '--tolaria-editor-strong-color':
     'color-mix(in srgb, var(--text-primary) 88%, var(--bg-primary))',
   '--tolaria-editor-strong-letter-spacing': '0.018em',
@@ -40,12 +45,24 @@ const LXGW_WENKAI_EMPHASIS_VALUES: Readonly<Record<TypographyVariable, string>> 
   '--tolaria-editor-strong-letter-spacing': '0.008em',
 }
 
+const KAITI_READABLE_EMPHASIS_VALUES: Readonly<Record<TypographyVariable, string>> = {
+  ...SOFT_CALLIGRAPHIC_VALUES,
+  '--tolaria-editor-body-color':
+    'color-mix(in srgb, var(--text-primary) 70%, var(--text-heading))',
+  '--tolaria-editor-strong-font-weight': '600',
+  '--tolaria-editor-strong-font-size': '1.025em',
+  '--tolaria-editor-strong-font-synthesis': 'weight',
+  '--tolaria-editor-strong-color': 'var(--text-heading)',
+  '--tolaria-editor-strong-letter-spacing': '0.008em',
+}
+
 const TYPOGRAPHY_PROFILE_VALUES: Readonly<Record<
   Exclude<EditorFontTypographyProfileId, 'official'>,
   Readonly<Record<TypographyVariable, string>>
 >> = {
   'soft-calligraphic': SOFT_CALLIGRAPHIC_VALUES,
   'lxgw-wenkai-emphasis': LXGW_WENKAI_EMPHASIS_VALUES,
+  'kaiti-readable-emphasis': KAITI_READABLE_EMPHASIS_VALUES,
 }
 
 function clearTypographyProfile(style: StyleTarget): void {

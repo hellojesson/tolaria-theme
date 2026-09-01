@@ -84,17 +84,21 @@ describe('editor font preferences', () => {
     expect(style.getPropertyValue('--tolaria-editor-heading-letter-spacing')).toBe('0.01em')
   })
 
-  it('keeps the softer calligraphic typography profile for Kaiti SC', () => {
+  it('gives Kaiti SC higher-contrast body text and distinct strong emphasis', () => {
     const storage = makeStorage()
     writeEditorFontPreference(storage, { id: 'kaiti-sc', customName: '' })
 
     applyStoredEditorFont(document, storage)
 
     const style = document.documentElement.style
-    expect(style.getPropertyValue('--tolaria-editor-strong-font-weight')).toBe('500')
-    expect(style.getPropertyValue('--tolaria-editor-strong-font-size')).toBe('inherit')
-    expect(style.getPropertyValue('--tolaria-editor-strong-color')).toContain('color-mix')
-    expect(style.getPropertyValue('--tolaria-editor-strong-letter-spacing')).toBe('0.018em')
+    expect(style.getPropertyValue('--tolaria-editor-body-color')).toBe(
+      'color-mix(in srgb, var(--text-primary) 70%, var(--text-heading))',
+    )
+    expect(style.getPropertyValue('--tolaria-editor-strong-font-weight')).toBe('600')
+    expect(style.getPropertyValue('--tolaria-editor-strong-font-size')).toBe('1.025em')
+    expect(style.getPropertyValue('--tolaria-editor-strong-font-synthesis')).toBe('weight')
+    expect(style.getPropertyValue('--tolaria-editor-strong-color')).toBe('var(--text-heading)')
+    expect(style.getPropertyValue('--tolaria-editor-strong-letter-spacing')).toBe('0.008em')
   })
 
   it('clears the calligraphic profile when switching to an official-weight preset', () => {
