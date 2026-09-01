@@ -5,6 +5,7 @@ The bundled theme packages adapt color palettes from these MIT-licensed projects
 - Rosé Pine Palette — <https://github.com/rose-pine/rose-pine-palette> — Copyright (c) mvllow
 - Nord — <https://github.com/nordtheme/nord> — Copyright (c) 2016-present Sven Greb <development@svengreb.de> (<https://www.svengreb.de>)
 - Blue Topaz — <https://github.com/PKM-er/Blue-Topaz_Obsidian-css> — Copyright (c) 2020 whyt-byte
+- Catppuccin — <https://github.com/catppuccin/catppuccin> — Copyright (c) 2021 Catppuccin
 
 These Tolaria mappings are adaptations and are not endorsed by the upstream palette projects.
 

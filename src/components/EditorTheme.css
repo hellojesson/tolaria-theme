@@ -841,9 +841,16 @@ body.tldraw-whiteboard-fullscreen-open {
   visibility: hidden;
 }
 
+.editor__code-block-language-layer {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 4;
+}
+
 .editor__code-block-language-overlay {
-  position: fixed;
-  z-index: 40;
+  pointer-events: auto;
+  position: absolute;
 }
 
 .editor__code-block-language-overlay .editor__code-block-language-trigger {

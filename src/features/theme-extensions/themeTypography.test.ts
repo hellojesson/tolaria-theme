@@ -6,7 +6,7 @@ describe('theme typography contract', () => {
   it('accepts a local editor font preset as an optional additive field', () => {
     const theme = {
       ...BUILT_IN_THEME_PACKAGES[0],
-      typography: { editorFontPreset: 'source-han-sans-sc' },
+      typography: { editorFontPreset: 'lxgw-wenkai' },
     }
 
     expect(parseThemePackage(theme)).toEqual(theme)
@@ -31,6 +31,10 @@ describe('theme typography contract', () => {
       'source-han-serif-sc',
       'source-han-sans-sc',
       'pingfang-sc',
+      'source-han-sans-sc',
+      'source-han-sans-sc',
+      'source-han-sans-sc',
+      'source-han-sans-sc',
     ])
   })
 })

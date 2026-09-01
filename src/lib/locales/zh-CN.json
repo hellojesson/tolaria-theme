@@ -282,6 +282,8 @@
   "settings.editorFont.pingfang": "苹方 / PingFang SC",
   "settings.editorFont.sourceHanSans": "思源黑体 / Source Han Sans SC",
   "settings.editorFont.sourceHanSerif": "思源宋体 / Source Han Serif SC",
+  "settings.editorFont.lxgwWenKai": "霞鹜文楷 / LXGW WenKai",
+  "settings.editorFont.kaitiSc": "楷体-简 / Kaiti SC",
   "settings.editorFont.custom": "自定义本地字体",
   "settings.editorFont.customNameAria": "本地字体族名称",
   "settings.editorFont.customNamePlaceholder": "例如：霞鹜文楷",

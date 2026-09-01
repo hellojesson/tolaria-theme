@@ -63,11 +63,15 @@ describe('theme package contract', () => {
     })).toThrow(/token/i)
   })
 
-  it('ships three valid built-in packages with two variants each', () => {
+  it('ships valid built-in packages with two variants each', () => {
     expect(BUILT_IN_THEME_PACKAGES.map((theme) => theme.id)).toEqual([
       'codex-rose-pine',
       'nord',
       'blue-topaz',
+      'catppuccin-latte',
+      'catppuccin-frappe',
+      'catppuccin-macchiato',
+      'catppuccin-mocha',
     ])
     for (const theme of BUILT_IN_THEME_PACKAGES) {
       expect(parseThemePackage(theme)).toBe(theme)

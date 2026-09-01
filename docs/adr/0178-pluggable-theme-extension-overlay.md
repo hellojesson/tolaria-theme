@@ -24,7 +24,7 @@ The extension must remain easy to carry across upstream Tolaria updates. It must
 6. The native file boundary reads only regular UTF-8 `.json` files no larger than 128 KB and performs a coarse schema check. The renderer then performs the complete token validation.
 7. Missing, corrupt, or removed extensions fall back to the official theme and clear every extension-owned inline token.
 
-Three portable JSON packages ship initially: Codex Rosé Pine, Nord, and Blue Topaz. Each contains independent light and dark variants. Their palette attributions remain next to the extension implementation.
+Three portable JSON packages ship initially: Rosé Pine, Nord, and Blue Topaz. Each contains independent light and dark variants. Their palette attributions remain next to the extension implementation.
 
 ## Alternatives considered
 

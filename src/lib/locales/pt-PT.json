@@ -1081,6 +1081,8 @@
   "settings.editorFont.pingfang": "PingFang SC",
   "settings.editorFont.sourceHanSans": "Source Han Sans SC",
   "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.lxgwWenKai": "LXGW WenKai",
+  "settings.editorFont.kaitiSc": "Kaiti SC",
   "settings.editorFont.custom": "Tipo de letra local personalizado",
   "settings.editorFont.customNameAria": "Nome da família do tipo de letra local",
   "settings.editorFont.customNamePlaceholder": "Por exemplo: LXGW WenKai",

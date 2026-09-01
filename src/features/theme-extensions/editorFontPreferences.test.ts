@@ -46,6 +46,19 @@ describe('editor font preferences', () => {
     expect(document.documentElement.style.getPropertyValue('--tolaria-editor-font-family')).toContain('PingFang SC')
   })
 
+  it.each([
+    ['lxgw-wenkai', 'LXGW WenKai'],
+    ['kaiti-sc', 'Kaiti SC'],
+  ] as const)('applies the %s local-only preset with a portable fallback', (id, family) => {
+    const storage = makeStorage()
+    writeEditorFontPreference(storage, { id, customName: '' })
+
+    expect(applyStoredEditorFont(document, storage)).toBe(id)
+    const stack = document.documentElement.style.getPropertyValue('--tolaria-editor-font-family')
+    expect(stack).toContain(family)
+    expect(stack).toMatch(/STKaiti|PingFang SC/)
+  })
+
   it('normalizes custom local font names and rejects unsafe stored values', () => {
     const storage = makeStorage()
     writeEditorFontPreference(storage, { id: 'custom', customName: '  My Local Font  ' })

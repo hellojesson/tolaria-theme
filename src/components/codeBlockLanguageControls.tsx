@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
 import type { useCreateBlockNote } from '@blocknote/react'
+import { getDocumentZoom } from '../extensions/zoomCursorFix'
 import { createTolariaCodeBlockOptions } from './codeBlockOptions'
 import { BLOCK_CONTAINER_SELECTOR } from './tolariaBlockNoteDom'
 import {
@@ -16,7 +16,6 @@ type CodeBlockLanguageEditor = ReturnType<typeof useCreateBlockNote>
 type CodeBlockLanguageTarget = {
   blockId: string
   editable: boolean
-  height: number
   language: string
   left: number
   top: number
@@ -44,16 +43,18 @@ function languageControlTarget(
   editor: CodeBlockLanguageEditor,
   blockId: string,
   nativeControl: LanguageSelectControl,
+  editorRoot: HTMLElement,
 ): CodeBlockLanguageTarget {
-  const rect = nativeControl.getBoundingClientRect()
+  const nativeRect = nativeControl.getBoundingClientRect()
+  const rootRect = editorRoot.getBoundingClientRect()
+  const zoom = getDocumentZoom()
   return {
     blockId,
     editable: editor.isEditable
       && nativeControl.closest('.bn-editor')?.getAttribute('contenteditable') !== 'false',
-    height: rect.height,
     language: nativeControl.value || 'text',
-    left: rect.left,
-    top: rect.top,
+    left: (nativeRect.left - rootRect.left) / zoom,
+    top: (nativeRect.top - rootRect.top) / zoom,
   }
 }
 
@@ -66,7 +67,9 @@ function codeBlockLanguageTarget(
   const blockId = element.closest(BLOCK_CONTAINER_SELECTOR)?.getAttribute('data-id')
   if (!blockId) return null
   if (!liveCodeBlock(editor, blockId)) return null
-  return languageControlTarget(editor, blockId, nativeControl)
+  const editorRoot = nativeControl.closest<HTMLElement>('.editor__blocknote-container')
+  if (!editorRoot) return null
+  return languageControlTarget(editor, blockId, nativeControl, editorRoot)
 }
 
 function codeBlockLanguageTargets(editor: CodeBlockLanguageEditor): CodeBlockLanguageTarget[] {
@@ -76,7 +79,15 @@ function codeBlockLanguageTargets(editor: CodeBlockLanguageEditor): CodeBlockLan
 }
 
 function sameTargets(current: CodeBlockLanguageTarget[], next: CodeBlockLanguageTarget[]): boolean {
-  return JSON.stringify(current) === JSON.stringify(next)
+  return current.length === next.length && current.every((target, index) => {
+    const candidate = next[index]
+    return candidate !== undefined
+      && target.blockId === candidate.blockId
+      && target.editable === candidate.editable
+      && target.language === candidate.language
+      && target.left === candidate.left
+      && target.top === candidate.top
+  })
 }
 
 function addedNodeTouchesEditor(node: Node): boolean {
@@ -114,16 +125,16 @@ function useCodeBlockLanguageTargets(editor: CodeBlockLanguageEditor) {
       subtree: true,
     })
     const unsubscribe = editor.onChange?.(refresh) ?? (() => {})
+    window.addEventListener('laputa-zoom-change', refresh)
     window.addEventListener('resize', refresh)
-    document.addEventListener('scroll', refresh, true)
     refresh()
 
     return () => {
       if (refreshFrame !== null) cancelAnimationFrame(refreshFrame)
       observer.disconnect()
       unsubscribe()
+      window.removeEventListener('laputa-zoom-change', refresh)
       window.removeEventListener('resize', refresh)
-      document.removeEventListener('scroll', refresh, true)
     }
   }, [editor])
 
@@ -181,20 +192,25 @@ function CodeBlockLanguagePicker({
 export function CodeBlockLanguageControls({ editor }: { editor: CodeBlockLanguageEditor }) {
   const targets = useCodeBlockLanguageTargets(editor)
 
-  return targets.map((target) => createPortal(
-    <div
-      className="editor__code-block-language-overlay"
-      data-code-block-id={target.blockId}
-      style={{ left: target.left, minHeight: target.height, top: target.top }}
-    >
-      <CodeBlockLanguagePicker
-        blockId={target.blockId}
-        editable={target.editable}
-        editor={editor}
-        language={target.language}
-      />
-    </div>,
-    document.body,
-    target.blockId,
-  ))
+  // ProseMirror owns each code block subtree and removes foreign children.
+  // Keep controls in this sibling layer so scrolling remains browser-synchronized.
+  return (
+    <div className="editor__code-block-language-layer">
+      {targets.map((target) => (
+        <div
+          className="editor__code-block-language-overlay"
+          data-code-block-id={target.blockId}
+          key={target.blockId}
+          style={{ left: target.left, top: target.top }}
+        >
+          <CodeBlockLanguagePicker
+            blockId={target.blockId}
+            editable={target.editable}
+            editor={editor}
+            language={target.language}
+          />
+        </div>
+      ))}
+    </div>
+  )
 }

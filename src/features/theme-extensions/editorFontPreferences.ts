@@ -7,7 +7,14 @@ export const EDITOR_FONT_CSS_VARIABLE = '--tolaria-editor-font-family'
 
 export const EDITOR_FONT_PREFERENCE_IDS = [
   'follow-theme',
-  ...(['system', 'pingfang-sc', 'source-han-sans-sc', 'source-han-serif-sc'] as const),
+  ...([
+    'system',
+    'pingfang-sc',
+    'source-han-sans-sc',
+    'source-han-serif-sc',
+    'lxgw-wenkai',
+    'kaiti-sc',
+  ] as const),
   'custom',
 ] as const
 
@@ -45,6 +52,16 @@ export const EDITOR_FONT_PRESETS: readonly EditorFontPreset[] = [
     id: 'source-han-serif-sc',
     localFontName: 'Source Han Serif SC',
     cssStack: "'Source Han Serif SC', 'Songti SC', 'STSong', serif",
+  },
+  {
+    id: 'lxgw-wenkai',
+    localFontName: 'LXGW WenKai',
+    cssStack: "'LXGW WenKai', 'Kaiti SC', 'STKaiti', 'KaiTi', serif",
+  },
+  {
+    id: 'kaiti-sc',
+    localFontName: 'Kaiti SC',
+    cssStack: "'Kaiti SC', 'STKaiti', 'KaiTi', serif",
   },
 ]
 

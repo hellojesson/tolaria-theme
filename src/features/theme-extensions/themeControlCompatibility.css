@@ -1,0 +1,12 @@
+/*
+ * Native form controls derive their default text color from color-scheme rather
+ * than inheriting Tolaria's semantic foreground. An extension may deliberately
+ * use a dark palette for its light-mode variant, so bind only the shadcn
+ * controls that otherwise rely on that native default to the theme contract.
+ */
+:root[data-theme-extension] [data-slot="select-trigger"],
+:root[data-theme-extension] [data-slot="input"],
+:root[data-theme-extension] [data-slot="button"][data-variant="outline"],
+:root[data-theme-extension] [data-slot="button"][data-variant="ghost"] {
+  color: var(--foreground);
+}

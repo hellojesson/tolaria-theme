@@ -60,6 +60,25 @@ async function textColor(locator: Locator) {
   return locator.evaluate((element) => getComputedStyle(element).color)
 }
 
+async function languageControlAlignment(nativeControl: Locator, blockId: string) {
+  return nativeControl.evaluate((select, id) => {
+    const overlay = document.querySelector<HTMLElement>(
+      `.editor__code-block-language-overlay[data-code-block-id="${id}"]`,
+    )
+    if (!overlay) return null
+    const nativeRect = select.getBoundingClientRect()
+    const overlayRect = overlay.getBoundingClientRect()
+    const leftDelta = Math.abs(overlayRect.left - nativeRect.left)
+    const topDelta = Math.abs(overlayRect.top - nativeRect.top)
+    return {
+      aligned: leftDelta <= 0.5 && topDelta <= 0.5,
+      anchoredInEditorLayer:
+        overlay.parentElement?.classList.contains('editor__code-block-language-layer') === true
+        && overlay.closest('.editor__blocknote-container') !== null,
+    }
+  }, blockId)
+}
+
 async function tokenColors(locator: Locator) {
   return locator.evaluateAll((elements) => (
     Array.from(new Set(elements.map((element) => getComputedStyle(element).color)))
@@ -307,6 +326,41 @@ test.describe('Editor code block theme', () => {
     await expect.poll(() => fs.readFileSync(path.join(tempVaultDir, CODE_NOTE_RELATIVE_PATH), 'utf8'), {
       timeout: 10_000,
     }).toContain(`\`\`\`cpp\n${PASTED_CPP_SNIPPET}\n\`\`\``)
+  })
+
+  test('keeps the language selector anchored while zooming and scrolling', async ({ page }) => {
+    await openFixtureVault(page, tempVaultDir)
+    const noteItem = page.locator('[data-testid="note-list-container"]')
+      .getByText(CODE_NOTE_TITLE, { exact: true })
+    await expect(noteItem).toBeVisible({ timeout: 10_000 })
+    await noteItem.click()
+
+    const codeBlock = page.locator('.bn-block-content[data-content-type="codeBlock"]').first()
+    await expect(codeBlock).toBeVisible({ timeout: 10_000 })
+    const blockId = await codeBlock.locator('xpath=ancestor::*[@data-id][1]').getAttribute('data-id')
+    expect(blockId).toBeTruthy()
+    if (!blockId) throw new Error('Code block id was unavailable')
+    const nativeLanguageSelect = codeBlock.locator('select').first()
+
+    await page.keyboard.press(process.platform === 'darwin' ? 'Meta+=' : 'Control+=')
+    await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).zoom))
+      .toBe('1.1')
+    await codeBlock.scrollIntoViewIfNeeded()
+
+    await expect.poll(() => languageControlAlignment(nativeLanguageSelect, blockId)).toEqual({
+      aligned: true,
+      anchoredInEditorLayer: true,
+    })
+
+    await page.locator('.editor-scroll-area').evaluate((element) => {
+      element.scrollTop += 240
+    })
+    await expect.poll(() => languageControlAlignment(nativeLanguageSelect, blockId)).toEqual({
+      aligned: true,
+      anchoredInEditorLayer: true,
+    })
+
+    await page.keyboard.press(process.platform === 'darwin' ? 'Meta+0' : 'Control+0')
   })
 
   test('moves down within code and exits only at the final logical line', async ({ page }) => {

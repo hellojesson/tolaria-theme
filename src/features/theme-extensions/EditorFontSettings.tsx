@@ -35,6 +35,8 @@ function fontPreferenceLabel(id: EditorFontPreferenceId, t: Translate): string {
     'pingfang-sc': t('settings.editorFont.pingfang'),
     'source-han-sans-sc': t('settings.editorFont.sourceHanSans'),
     'source-han-serif-sc': t('settings.editorFont.sourceHanSerif'),
+    'lxgw-wenkai': t('settings.editorFont.lxgwWenKai'),
+    'kaiti-sc': t('settings.editorFont.kaitiSc'),
     custom: t('settings.editorFont.custom'),
   }
   return labels[id]

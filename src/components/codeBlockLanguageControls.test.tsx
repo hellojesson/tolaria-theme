@@ -2,14 +2,18 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { CodeBlockLanguageControls } from './codeBlockLanguageControls'
 
-function codeBlockDom() {
+function codeBlockDom(blockId = 'code-block-1') {
   const editorElement = document.createElement('div')
   editorElement.className = 'bn-editor'
   editorElement.setAttribute('contenteditable', 'false')
 
+  const editorRoot = document.createElement('div')
+  editorRoot.className = 'editor__blocknote-container'
+  const componentHost = document.createElement('div')
+
   const blockContainer = document.createElement('div')
   blockContainer.dataset.nodeType = 'blockContainer'
-  blockContainer.dataset.id = 'code-block-1'
+  blockContainer.dataset.id = blockId
 
   const blockContent = document.createElement('div')
   blockContent.className = 'bn-block-content'
@@ -25,14 +29,15 @@ function codeBlockDom() {
   blockContent.appendChild(controlHost)
   blockContainer.appendChild(blockContent)
   editorElement.appendChild(blockContainer)
-  document.body.appendChild(editorElement)
+  editorRoot.append(editorElement, componentHost)
+  document.body.appendChild(editorRoot)
 
-  return { editorElement, nativeControl }
+  return { componentHost, controlHost, editorElement, editorRoot, nativeControl }
 }
 
 describe('CodeBlockLanguageControls', () => {
   it('replaces a stale disabled native picker with a live shadcn language control', async () => {
-    const { editorElement, nativeControl } = codeBlockDom()
+    const { componentHost, editorElement, editorRoot, nativeControl } = codeBlockDom()
     editorElement.remove()
     const editor = {
       domElement: editorElement.parentElement,
@@ -42,11 +47,11 @@ describe('CodeBlockLanguageControls', () => {
       updateBlock: vi.fn(),
     }
 
-    render(<CodeBlockLanguageControls editor={editor as never} />)
+    render(<CodeBlockLanguageControls editor={editor as never} />, { container: componentHost })
 
     await act(async () => {
       editor.domElement = editorElement
-      document.body.appendChild(editorElement)
+      editorRoot.prepend(editorElement)
     })
 
     const trigger = await waitFor(() => {
@@ -70,5 +75,31 @@ describe('CodeBlockLanguageControls', () => {
     expect(editor.updateBlock).toHaveBeenCalledWith('code-block-1', {
       props: { language: 'cpp' },
     })
+  })
+
+  it('anchors the live picker in an editor-local layer outside ProseMirror content', async () => {
+    const blockId = 'code-block-scroll-anchor'
+    const { componentHost, controlHost, editorElement, editorRoot } = codeBlockDom(blockId)
+    const editor = {
+      domElement: editorElement,
+      getBlock: vi.fn(() => ({ id: blockId, type: 'codeBlock' })),
+      isEditable: false,
+      onChange: vi.fn(() => vi.fn()),
+      updateBlock: vi.fn(),
+    }
+
+    render(<CodeBlockLanguageControls editor={editor as never} />, { container: componentHost })
+
+    const overlay = await waitFor(() => {
+      const control = document.querySelector(
+        `.editor__code-block-language-overlay[data-code-block-id="${blockId}"]`,
+      )
+      if (!control) throw new Error('Language overlay was unavailable')
+      return control
+    })
+
+    expect(overlay.parentElement).toHaveClass('editor__code-block-language-layer')
+    expect(editorRoot).toContainElement(overlay)
+    expect(controlHost).not.toContainElement(overlay)
   })
 })

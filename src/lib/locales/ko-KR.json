@@ -1081,6 +1081,8 @@
   "settings.editorFont.pingfang": "PingFang SC",
   "settings.editorFont.sourceHanSans": "Source Han Sans SC",
   "settings.editorFont.sourceHanSerif": "Source Han Serif SC",
+  "settings.editorFont.lxgwWenKai": "LXGW WenKai",
+  "settings.editorFont.kaitiSc": "Kaiti SC",
   "settings.editorFont.custom": "사용자 지정 로컬 글꼴",
   "settings.editorFont.customNameAria": "로컬 글꼴 패밀리 이름",
   "settings.editorFont.customNamePlaceholder": "예: LXGW WenKai",

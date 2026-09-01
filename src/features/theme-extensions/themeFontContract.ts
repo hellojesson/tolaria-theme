@@ -3,6 +3,8 @@ export const THEME_EDITOR_FONT_PRESET_IDS = [
   'pingfang-sc',
   'source-han-sans-sc',
   'source-han-serif-sc',
+  'lxgw-wenkai',
+  'kaiti-sc',
 ] as const
 
 export type ThemeEditorFontPresetId = typeof THEME_EDITOR_FONT_PRESET_IDS[number]

@@ -501,7 +501,7 @@ describe('SettingsPanel', () => {
     expect(trigger).toHaveAttribute('data-value', 'official')
 
     fireEvent.pointerDown(trigger, { button: 0, pointerType: 'mouse' })
-    expect(screen.getByRole('option', { name: 'Codex Rosé Pine' })).toBeInTheDocument()
+    expect(screen.getByRole('option', { name: 'Rosé Pine' })).toBeInTheDocument()
     expect(screen.getByRole('option', { name: 'Nord' })).toBeInTheDocument()
     fireEvent.click(screen.getByRole('option', { name: 'Blue Topaz' }))
 

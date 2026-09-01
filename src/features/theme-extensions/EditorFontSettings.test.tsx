@@ -36,7 +36,7 @@ describe('EditorFontSettings', () => {
     installPointerCapturePolyfill()
   })
 
-  it('offers the system and three requested Chinese font presets', () => {
+  it('offers the system and five requested Chinese font presets', () => {
     render(<EditorFontSettings t={t} />)
 
     fireEvent.pointerDown(screen.getByTestId('settings-editor-font'), { button: 0, pointerType: 'mouse' })
@@ -45,6 +45,8 @@ describe('EditorFontSettings', () => {
     expect(screen.getByRole('option', { name: 'PingFang SC' })).toBeInTheDocument()
     expect(screen.getByRole('option', { name: 'Source Han Sans SC' })).toBeInTheDocument()
     expect(screen.getByRole('option', { name: 'Source Han Serif SC' })).toBeInTheDocument()
+    expect(screen.getByRole('option', { name: 'LXGW WenKai' })).toBeInTheDocument()
+    expect(screen.getByRole('option', { name: 'Kaiti SC' })).toBeInTheDocument()
   })
 
   it('persists and applies an explicit preset without changing the theme package', () => {
@@ -59,6 +61,18 @@ describe('EditorFontSettings', () => {
     expect(trackEventMock).toHaveBeenCalledWith('editor_font_selected', {
       preference: 'source-han-sans-sc',
     })
+  })
+
+  it.each([
+    ['LXGW WenKai', 'lxgw-wenkai', 'LXGW WenKai'],
+    ['Kaiti SC', 'kaiti-sc', 'Kaiti SC'],
+  ] as const)('persists and applies the %s preset', (label, id, family) => {
+    render(<EditorFontSettings t={t} />)
+
+    chooseFont(label)
+
+    expect(window.localStorage.getItem(EDITOR_FONT_PREFERENCE_STORAGE_KEY)).toBe(id)
+    expect(document.documentElement.style.getPropertyValue('--tolaria-editor-font-family')).toContain(family)
   })
 
   it('supports a validated custom local font name without importing font data', () => {
