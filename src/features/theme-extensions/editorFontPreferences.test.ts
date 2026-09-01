@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   EDITOR_FONT_CUSTOM_NAME_STORAGE_KEY,
   EDITOR_FONT_PREFERENCE_STORAGE_KEY,
@@ -7,6 +7,7 @@ import {
   readEditorFontPreference,
   writeEditorFontPreference,
 } from './editorFontPreferences'
+import { EDITOR_FONT_TYPOGRAPHY_CSS_VARIABLES } from './editorFontTypographyProfile'
 
 function makeStorage(initial: Record<string, string> = {}): Storage {
   const values = new Map(Object.entries(initial))
@@ -21,6 +22,14 @@ function makeStorage(initial: Record<string, string> = {}): Storage {
 }
 
 describe('editor font preferences', () => {
+  function clearTypographyVariables(): void {
+    for (const variable of EDITOR_FONT_TYPOGRAPHY_CSS_VARIABLES) {
+      document.documentElement.style.removeProperty(variable)
+    }
+  }
+
+  afterEach(clearTypographyVariables)
+
   it('defaults to following the selected theme without overriding official typography', () => {
     const storage = makeStorage()
 
@@ -57,6 +66,48 @@ describe('editor font preferences', () => {
     const stack = document.documentElement.style.getPropertyValue('--tolaria-editor-font-family')
     expect(stack).toContain(family)
     expect(stack).toMatch(/STKaiti|PingFang SC/)
+  })
+
+  it('gives LXGW WenKai strong text a distinct native-medium emphasis', () => {
+    const storage = makeStorage()
+    writeEditorFontPreference(storage, { id: 'lxgw-wenkai', customName: '' })
+
+    applyStoredEditorFont(document, storage)
+
+    const style = document.documentElement.style
+    expect(style.getPropertyValue('--tolaria-editor-strong-font-weight')).toBe('600')
+    expect(style.getPropertyValue('--tolaria-editor-strong-font-size')).toBe('1.025em')
+    expect(style.getPropertyValue('--tolaria-editor-strong-color')).toBe('var(--text-primary)')
+    expect(style.getPropertyValue('--tolaria-editor-strong-letter-spacing')).toBe('0.008em')
+    expect(style.getPropertyValue('--tolaria-editor-heading-font-weight')).toBe('500')
+    expect(style.getPropertyValue('--tolaria-editor-heading-color')).toContain('color-mix')
+    expect(style.getPropertyValue('--tolaria-editor-heading-letter-spacing')).toBe('0.01em')
+  })
+
+  it('keeps the softer calligraphic typography profile for Kaiti SC', () => {
+    const storage = makeStorage()
+    writeEditorFontPreference(storage, { id: 'kaiti-sc', customName: '' })
+
+    applyStoredEditorFont(document, storage)
+
+    const style = document.documentElement.style
+    expect(style.getPropertyValue('--tolaria-editor-strong-font-weight')).toBe('500')
+    expect(style.getPropertyValue('--tolaria-editor-strong-font-size')).toBe('inherit')
+    expect(style.getPropertyValue('--tolaria-editor-strong-color')).toContain('color-mix')
+    expect(style.getPropertyValue('--tolaria-editor-strong-letter-spacing')).toBe('0.018em')
+  })
+
+  it('clears the calligraphic profile when switching to an official-weight preset', () => {
+    const storage = makeStorage()
+    writeEditorFontPreference(storage, { id: 'lxgw-wenkai', customName: '' })
+    applyStoredEditorFont(document, storage)
+
+    writeEditorFontPreference(storage, { id: 'pingfang-sc', customName: '' })
+    applyStoredEditorFont(document, storage)
+
+    for (const variable of EDITOR_FONT_TYPOGRAPHY_CSS_VARIABLES) {
+      expect(document.documentElement.style.getPropertyValue(variable)).toBe('')
+    }
   })
 
   it('normalizes custom local font names and rejects unsafe stored values', () => {

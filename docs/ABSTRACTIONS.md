@@ -865,11 +865,11 @@ The app uses internal light and dark themes owned by Tolaria, with System as an 
 The downstream theme-extension layer in [ADR-0179](adr/0179-local-only-editor-font-theme-overlay.md) is a bounded semantic overlay, not a return to arbitrary vault-authored CSS. Packages may provide allowlisted colors plus one local-only editor-font preset; they cannot provide CSS, URLs, or font files.
 
 1. **Global CSS variables** (`src/index.css`): Semantic app colors, borders, surfaces, and interaction states via `:root` / `[data-theme]`, bridged to Tailwind v4
-2. **Editor theme** (`src/theme.json`): BlockNote typography, flattened to CSS vars by `useEditorTheme`; the font family delegates through `--tolaria-editor-font-family` while retaining the official bundled-font fallback
+2. **Editor theme** (`src/theme.json`): BlockNote typography, flattened to CSS vars by `useEditorTheme`; the font family delegates through `--tolaria-editor-font-family` while retaining the official bundled-font fallback. Heading and strong-text rules accept optional `--tolaria-editor-*` profile values for weight, size, color, and tracking whose fallbacks remain the official typography variables
 3. **Runtime theme bridge**: Resolves the selected preference to `light` / `dark`, applies `data-theme` and `.dark` for shadcn/ui, and subscribes to `prefers-color-scheme` while System is selected
 4. **Theme mode commands**: Command-palette actions for Light, Dark, and System call the same `saveSettings` path as the Settings panel and persist only `settings.theme_mode`
 5. **Extension package contract** (`src/features/theme-extensions/themePackage.ts`): Validates versioned JSON packages, both resolved-mode variants, a semantic token allowlist, hex-only colors, and an optional allowlisted local editor-font preset
-6. **Extension runtime** (`themeRuntime.ts` + `editorFontPreferences.ts` + `useThemeExtensionRuntime.ts`): Applies namespaced localStorage selection after the official mode, resolves explicit font preferences over theme recommendations, clears stale overrides on fallback, and follows resolved System changes across windows
+6. **Extension runtime** (`themeRuntime.ts` + `editorFontPreferences.ts` + `editorFontTypographyProfile.ts` + `useThemeExtensionRuntime.ts`): Applies namespaced localStorage selection after the official mode, resolves explicit font preferences over theme recommendations, applies preset-owned calligraphic typography values through the bounded editor adapter, clears stale overrides on fallback, and follows resolved System changes across windows
 7. **Native import boundary** (`commands/theme_extensions.rs`): Reads only regular UTF-8 JSON files up to 128 KB before renderer-side validation; it never loads CSS or executes theme code
 
 ## Localization

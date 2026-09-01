@@ -1,4 +1,8 @@
 import type { ThemeEditorFontPresetId } from './themeFontContract'
+import {
+  applyEditorFontTypographyProfile,
+  type EditorFontTypographyProfileId,
+} from './editorFontTypographyProfile'
 
 export const EDITOR_FONT_PREFERENCE_STORAGE_KEY = 'tolaria.theme-extension.editor-font.v1'
 export const EDITOR_FONT_CUSTOM_NAME_STORAGE_KEY = 'tolaria.theme-extension.editor-font.custom-name.v1'
@@ -30,6 +34,7 @@ export interface EditorFontPreset {
   id: ThemeEditorFontPresetId
   localFontName: string | null
   cssStack: string
+  typographyProfile?: EditorFontTypographyProfileId
 }
 
 export const EDITOR_FONT_PRESETS: readonly EditorFontPreset[] = [
@@ -57,11 +62,13 @@ export const EDITOR_FONT_PRESETS: readonly EditorFontPreset[] = [
     id: 'lxgw-wenkai',
     localFontName: 'LXGW WenKai',
     cssStack: "'LXGW WenKai', 'Kaiti SC', 'STKaiti', 'KaiTi', serif",
+    typographyProfile: 'lxgw-wenkai-emphasis',
   },
   {
     id: 'kaiti-sc',
     localFontName: 'Kaiti SC',
     cssStack: "'Kaiti SC', 'STKaiti', 'KaiTi', serif",
+    typographyProfile: 'soft-calligraphic',
   },
 ]
 
@@ -178,17 +185,20 @@ export function applyStoredEditorFont(
 
   if (preference.id === 'follow-theme' && !themePreset) {
     root.style.removeProperty(EDITOR_FONT_CSS_VARIABLE)
+    applyEditorFontTypographyProfile(root.style, 'official')
     return 'official'
   }
 
   if (preference.id === 'custom') {
     root.style.setProperty(EDITOR_FONT_CSS_VARIABLE, customFontStack(preference.customName))
+    applyEditorFontTypographyProfile(root.style, 'official')
     return 'custom'
   }
 
   const resolvedPreset = preference.id === 'follow-theme' ? themePreset : preference.id
   const preset = findEditorFontPreset(resolvedPreset ?? 'system')
   root.style.setProperty(EDITOR_FONT_CSS_VARIABLE, preset.cssStack)
+  applyEditorFontTypographyProfile(root.style, preset.typographyProfile ?? 'official')
   return preset.id
 }
 

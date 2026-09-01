@@ -46,6 +46,10 @@ Do not rename the internal `codex-rose-pine` id or its JSON filename during rout
 
 The downstream preset contract also includes `lxgw-wenkai` (`LXGW WenKai`) and `kaiti-sc` (`Kaiti SC`). Both resolve through the existing local-only `FontFace(..., local(...))` availability check and the single `--tolaria-editor-font-family` adapter; no font file, URL, download path, or native command was added. Keep their portable fallbacks (`Kaiti SC` / `STKaiti` / `KaiTi`) when rebasing, and preserve the preset ids because explicit user selections are stored in localStorage.
 
+The calligraphic presets select extension-owned typography profiles. `kaiti-sc` keeps the shared `soft-calligraphic` profile, while `lxgw-wenkai` uses `lxgw-wenkai-emphasis`: normal text remains at the editor's inherited `400`, and strong text requests weight `600`, size `1.025em`, full primary color, and restrained `0.008em` tracking. With only LXGW WenKai Regular and Medium installed, CSS font matching resolves that request to the closest available native Medium face; no font asset is bundled. The profiles apply their values through seven namespaced `--tolaria-editor-*` variables. `EditorTheme.css` contains the only upstream-facing seam: heading and `strong` declarations read those variables first and retain their existing official variables as fallbacks. Switching to any other preset or custom font removes all seven overrides, so the official typography remains byte-for-byte effective when the profile is inactive.
+
+When rebasing, preserve the nested fallback shape in `EditorTheme.css`, for example `var(--tolaria-editor-strong-font-weight, var(--inline-styles-bold-font-weight))`. Do not replace it with extension-specific BlockNote DOM selectors; the CSS-variable seam is intentionally smaller and more stable across editor upgrades.
+
 ## FORK-UI-001: editor-local code-language control layer
 
 ### Status

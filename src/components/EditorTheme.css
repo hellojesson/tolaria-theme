@@ -178,10 +178,10 @@
 .editor__blocknote-container [data-content-type="heading"]:not([data-level]) .bn-inline-content,
 .editor__blocknote-container [data-content-type="heading"][data-level="1"] .bn-inline-content {
   font-size: var(--headings-h1-font-size);
-  font-weight: var(--headings-h1-font-weight);
+  font-weight: var(--tolaria-editor-heading-font-weight, var(--headings-h1-font-weight));
   line-height: var(--headings-h1-line-height);
-  color: var(--headings-h1-color);
-  letter-spacing: var(--headings-h1-letter-spacing);
+  color: var(--tolaria-editor-heading-color, var(--headings-h1-color));
+  letter-spacing: var(--tolaria-editor-heading-letter-spacing, var(--headings-h1-letter-spacing));
 }
 .editor__blocknote-container [data-content-type="heading"]:not([data-level])[data-is-empty-and-focused] .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before,
 .editor__blocknote-container [data-content-type="heading"]:not([data-level])[data-is-only-empty-block] .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before,
@@ -196,10 +196,10 @@
 }
 .editor__blocknote-container [data-content-type="heading"][data-level="2"] .bn-inline-content {
   font-size: var(--headings-h2-font-size);
-  font-weight: var(--headings-h2-font-weight);
+  font-weight: var(--tolaria-editor-heading-font-weight, var(--headings-h2-font-weight));
   line-height: var(--headings-h2-line-height);
-  color: var(--headings-h2-color);
-  letter-spacing: var(--headings-h2-letter-spacing);
+  color: var(--tolaria-editor-heading-color, var(--headings-h2-color));
+  letter-spacing: var(--tolaria-editor-heading-letter-spacing, var(--headings-h2-letter-spacing));
 }
 
 .editor__blocknote-container .bn-block-outer:has(> .bn-block > [data-content-type="heading"][data-level="3"]) {
@@ -208,10 +208,10 @@
 }
 .editor__blocknote-container [data-content-type="heading"][data-level="3"] .bn-inline-content {
   font-size: var(--headings-h3-font-size);
-  font-weight: var(--headings-h3-font-weight);
+  font-weight: var(--tolaria-editor-heading-font-weight, var(--headings-h3-font-weight));
   line-height: var(--headings-h3-line-height);
-  color: var(--headings-h3-color);
-  letter-spacing: var(--headings-h3-letter-spacing);
+  color: var(--tolaria-editor-heading-color, var(--headings-h3-color));
+  letter-spacing: var(--tolaria-editor-heading-letter-spacing, var(--headings-h3-letter-spacing));
 }
 
 .editor__blocknote-container .bn-block-outer:has(> .bn-block > [data-content-type="heading"][data-level="4"]) {
@@ -220,10 +220,10 @@
 }
 .editor__blocknote-container [data-content-type="heading"][data-level="4"] .bn-inline-content {
   font-size: var(--headings-h4-font-size);
-  font-weight: var(--headings-h4-font-weight);
+  font-weight: var(--tolaria-editor-heading-font-weight, var(--headings-h4-font-weight));
   line-height: var(--headings-h4-line-height);
-  color: var(--headings-h4-color);
-  letter-spacing: var(--headings-h4-letter-spacing);
+  color: var(--tolaria-editor-heading-color, var(--headings-h4-color));
+  letter-spacing: var(--tolaria-editor-heading-letter-spacing, var(--headings-h4-letter-spacing));
 }
 
 /* --- Bullet lists --- */
@@ -335,8 +335,10 @@
 
 /* --- Inline: bold --- */
 .editor__blocknote-container .bn-editor strong {
-  font-weight: var(--inline-styles-bold-font-weight);
-  color: var(--inline-styles-bold-color);
+  font-weight: var(--tolaria-editor-strong-font-weight, var(--inline-styles-bold-font-weight));
+  font-size: var(--tolaria-editor-strong-font-size, inherit);
+  color: var(--tolaria-editor-strong-color, var(--inline-styles-bold-color));
+  letter-spacing: var(--tolaria-editor-strong-letter-spacing, normal);
 }
 
 /* --- Inline: italic --- */
