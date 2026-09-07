@@ -119,7 +119,7 @@ function CommandCenterHeader({ locale, navigation, onSelectView, snapshot }: Tem
       data-grid="none"
       data-testid="workbench-command-center-header"
     >
-      <div className="mx-auto w-full max-w-[94rem] px-5 pb-0 pt-3 md:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[94rem] px-5 pb-0 pt-5 md:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
           <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
             <span className="size-1.5 rounded-full bg-primary shadow-[0_0_12px_var(--primary)]" />
@@ -137,7 +137,7 @@ function CommandCenterHeader({ locale, navigation, onSelectView, snapshot }: Tem
           </Button>
         </div>
 
-        <div className="mt-1 grid items-center gap-3 py-2 lg:grid-cols-[minmax(17.5rem,0.72fr)_minmax(38rem,1.28fr)] lg:gap-8">
+        <div className="mt-1 grid items-center gap-3 py-2.5 lg:grid-cols-[minmax(17.5rem,0.72fr)_minmax(38rem,1.28fr)] lg:gap-8">
           <div className="min-w-0">
             <h1 className="text-2xl font-semibold tracking-tight md:text-3xl" id="workbench-command-center-title">
               {translate(locale, greetingKey(now.getHours()))}
