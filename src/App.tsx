@@ -118,6 +118,14 @@ import {
   vaultPathForEntry,
 } from './utils/workspaces'
 import { notePathsMatch } from './utils/notePathIdentity'
+import {
+  buildWorkbenchModel,
+  createWorkbenchController,
+  type WorkbenchControllerSnapshot,
+  useWorkbenchNavigation,
+  WorkbenchRenderer,
+  WorkbenchSurface,
+} from './features/workbench'
 import { activeGitRepositories } from './utils/gitRepositories'
 import { entrySupportsPreviewSourceToggle } from './utils/filePreview'
 import { isMarkdownEntry } from './utils/typeDefinitions'
@@ -171,6 +179,35 @@ function App() {
 
 function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | null }) {
   const aiWorkspaceWindow = false
+  const [workbenchController] = useState(() => createWorkbenchController({
+    storage: localStorage,
+    eventTarget: window,
+  }))
+  useEffect(() => () => workbenchController.destroy(), [workbenchController])
+  const openWorkbench = useCallback(() => {
+    if (workbenchController.getSnapshot().isOpen) return
+    workbenchController.open()
+    trackEvent('workbench_opened', {
+      template_id: workbenchController.getSnapshot().template.id,
+      entry_point: 'status_bar',
+    })
+  }, [workbenchController])
+  const closeWorkbench = useCallback(() => {
+    if (!workbenchController.getSnapshot().isOpen) return
+    workbenchController.close()
+    trackEvent('workbench_closed', {
+      template_id: workbenchController.getSnapshot().template.id,
+      close_method: 'button',
+    })
+  }, [workbenchController])
+  const selectWorkbenchView = useCallback((viewId: string) => {
+    const result = workbenchController.selectView(viewId)
+    if (result !== 'updated' && result !== 'updated-session-only') return
+    trackEvent('workbench_view_changed', {
+      template_id: workbenchController.getSnapshot().template.id,
+      view_id: viewId,
+    })
+  }, [workbenchController])
   const [selection, setSelection] = useState<SidebarSelection>(DEFAULT_SELECTION)
   const [noteListFilter, setNoteListFilter] = useState<NoteListFilter>('open')
   const [pendingNoteListPdfExportPath, setPendingNoteListPdfExportPath] = useState<string | null>(null)
@@ -1496,6 +1533,35 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     settingsLoaded,
     vaultListLoaded: vaultSwitcher.loaded,
   })
+  const workbenchNavigation = useWorkbenchNavigation(useMemo(() => ({
+    onClose: closeWorkbench,
+    onOpenEntry: handleSelectNote,
+    onOpenSelection: handleSetSelection,
+  }), [closeWorkbench, handleSelectNote, handleSetSelection]))
+  const renderWorkbench = useCallback((snapshot: WorkbenchControllerSnapshot) => (
+    <WorkbenchRenderer
+      locale={appLocale}
+      model={buildWorkbenchModel({
+        entries: visibleEntries,
+        folders: vault.folders,
+        views: vault.views,
+        activeSelection: effectiveSelection,
+        loading: isVaultContentLoading,
+      })}
+      navigation={workbenchNavigation}
+      onSelectView={selectWorkbenchView}
+      snapshot={snapshot}
+    />
+  ), [
+    appLocale,
+    effectiveSelection,
+    isVaultContentLoading,
+    selectWorkbenchView,
+    vault.folders,
+    vault.views,
+    visibleEntries,
+    workbenchNavigation,
+  ])
   const deepLinks = useDeepLinks({
     activeEntry: activeTab?.entry ?? null,
     currentVaultPath: resolvedPath,
@@ -1733,6 +1799,10 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
               <ResizeHandle onResize={layout.handleSidebarResize} />
             </>
           )}
+          <WorkbenchSurface
+            controller={workbenchController}
+            renderWorkbench={renderWorkbench}
+          >
           {noteListVisible && (
             <>
               <div className={`app__note-list${aiActivity.highlightElement === 'notelist' ? ' ai-highlight' : ''}`} style={{ width: layout.noteListWidth }}>
@@ -1824,10 +1894,11 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
               locale={appLocale}
             />
           </div>
+          </WorkbenchSurface>
         </div>
         <UpdateBanner status={updateStatus} actions={updateActions} locale={appLocale} />
         <RenameDetectedBanner renames={detectedRenames} onUpdate={handleUpdateWikilinks} onDismiss={handleDismissRenames} />
-        <StatusBar noteCount={visibleEntries.length} modifiedCount={gitModifiedCount} vaultPath={resolvedPath} defaultWorkspacePath={defaultWorkspacePath} vaults={vaultSwitcher.allVaults} multiWorkspaceEnabled={multiWorkspaceEnabled} onSwitchVault={vaultSwitcher.switchVault} onSetDefaultWorkspace={vaultSwitcher.setDefaultWorkspace} onOpenSettings={handleOpenSettings} onOpenVaultSettings={handleOpenVaultSettings} onOpenFeedback={openFeedback} onOpenDocs={openDocs} onOpenLocalFolder={vaultSwitcher.handleOpenLocalFolder} onCreateEmptyVault={vaultSwitcher.handleCreateEmptyVault} onCloneVault={dialogs.openCloneVault} onCloneGettingStarted={cloneGettingStartedVault} onClickPending={() => handleSetSelection({ kind: 'filter', filter: 'changes' })} onClickPulse={() => handleSetSelection({ kind: 'filter', filter: 'pulse' })} onCommitPush={handleCommitPush} commitActionPending={commitFlow.isOpeningCommitDialog} gitFeaturesEnabled={gitFeaturesEnabled} onInitializeGit={openGitSetupDialog} isOffline={networkStatus.isOffline} isGitVault={isGitVault} isVaultReloading={vault.isReloading || isVaultContentLoading} syncStatus={autoSync.syncStatus} lastSyncTime={autoSync.lastSyncTime} conflictCount={autoSync.conflictFiles.length} remoteStatus={autoSync.remoteStatus} repositories={gitRepositories} selectedRepositoryPath={gitSurfaces.syncRepositoryPath} onRepositoryChange={gitSurfaces.setSyncRepositoryPath} onTriggerSync={handlePullSelectedRepository} onPullAndPush={handlePullAndPushSelectedRepository} onOpenConflictResolver={conflictFlow.handleOpenConflictResolver} zoomLevel={zoom.zoomLevel} themeMode={documentThemeMode} onZoomReset={zoom.zoomReset} onToggleThemeMode={settingsLoaded ? handleToggleThemeMode : undefined} buildNumber={buildNumber} onCheckForUpdates={handleCheckForUpdates} onRemoveVault={vaultSwitcher.removeVault} onReorderVaults={vaultSwitcher.reorderVaults} onUpdateWorkspaceIdentity={vaultSwitcher.updateWorkspaceIdentity} aiFeaturesEnabled={aiFeaturesEnabled} mcpStatus={mcpSetupDialog.status} onInstallMcp={mcpSetupDialog.openDialog} locale={appLocale} />
+        <StatusBar noteCount={visibleEntries.length} modifiedCount={gitModifiedCount} vaultPath={resolvedPath} defaultWorkspacePath={defaultWorkspacePath} vaults={vaultSwitcher.allVaults} multiWorkspaceEnabled={multiWorkspaceEnabled} onSwitchVault={vaultSwitcher.switchVault} onSetDefaultWorkspace={vaultSwitcher.setDefaultWorkspace} onOpenSettings={handleOpenSettings} onOpenVaultSettings={handleOpenVaultSettings} onOpenWorkbench={noteWindowParams ? undefined : openWorkbench} onOpenFeedback={openFeedback} onOpenDocs={openDocs} onOpenLocalFolder={vaultSwitcher.handleOpenLocalFolder} onCreateEmptyVault={vaultSwitcher.handleCreateEmptyVault} onCloneVault={dialogs.openCloneVault} onCloneGettingStarted={cloneGettingStartedVault} onClickPending={() => handleSetSelection({ kind: 'filter', filter: 'changes' })} onClickPulse={() => handleSetSelection({ kind: 'filter', filter: 'pulse' })} onCommitPush={handleCommitPush} commitActionPending={commitFlow.isOpeningCommitDialog} gitFeaturesEnabled={gitFeaturesEnabled} onInitializeGit={openGitSetupDialog} isOffline={networkStatus.isOffline} isGitVault={isGitVault} isVaultReloading={vault.isReloading || isVaultContentLoading} syncStatus={autoSync.syncStatus} lastSyncTime={autoSync.lastSyncTime} conflictCount={autoSync.conflictFiles.length} remoteStatus={autoSync.remoteStatus} repositories={gitRepositories} selectedRepositoryPath={gitSurfaces.syncRepositoryPath} onRepositoryChange={gitSurfaces.setSyncRepositoryPath} onTriggerSync={handlePullSelectedRepository} onPullAndPush={handlePullAndPushSelectedRepository} onOpenConflictResolver={conflictFlow.handleOpenConflictResolver} zoomLevel={zoom.zoomLevel} themeMode={documentThemeMode} onZoomReset={zoom.zoomReset} onToggleThemeMode={settingsLoaded ? handleToggleThemeMode : undefined} buildNumber={buildNumber} onCheckForUpdates={handleCheckForUpdates} onRemoveVault={vaultSwitcher.removeVault} onReorderVaults={vaultSwitcher.reorderVaults} onUpdateWorkspaceIdentity={vaultSwitcher.updateWorkspaceIdentity} aiFeaturesEnabled={aiFeaturesEnabled} mcpStatus={mcpSetupDialog.status} onInstallMcp={mcpSetupDialog.openDialog} locale={appLocale} />
         {aiFeaturesEnabled && !effectiveShowAIChat ? (
           <AiWorkspaceFloatingButton
             statuses={aiAgentsStatus}

@@ -1,4 +1,4 @@
-import { BookOpen, GearSix as Settings, Megaphone, Moon, Package, Sun, type IconProps } from '@phosphor-icons/react'
+import { BookOpen, GearSix as Settings, GridFour, Megaphone, Moon, Package, Sun, type IconProps } from '@phosphor-icons/react'
 import type { ComponentType, MouseEventHandler } from 'react'
 import type { McpStatus } from '../../hooks/useMcpStatus'
 import type { ThemeMode } from '../../lib/themeMode'
@@ -87,6 +87,7 @@ interface StatusBarSecondarySectionProps {
   onZoomReset?: () => void
   onToggleThemeMode?: () => void
   onOpenFeedback?: () => void
+  onOpenWorkbench?: () => void
   onOpenDocs?: () => void
   onOpenSettings?: () => void
   stacked?: boolean
@@ -442,7 +443,7 @@ export function StatusBarPrimarySection(options: StatusBarPrimarySectionProps) {
 }
 
 export function StatusBarSecondarySection(options: StatusBarSecondarySectionProps) {
-  const { noteCount, zoomLevel, themeMode = 'light', onZoomReset, onToggleThemeMode, onOpenFeedback, onOpenDocs, onOpenSettings, locale = 'en', stacked = false, compact = false } = options
+  const { noteCount, zoomLevel, themeMode = 'light', onZoomReset, onToggleThemeMode, onOpenFeedback, onOpenWorkbench, onOpenDocs, onOpenSettings, locale = 'en', stacked = false, compact = false } = options
   void noteCount
   const ThemeIcon = themeMode === 'dark' ? Sun : Moon
   const themeTooltip = {
@@ -480,6 +481,17 @@ export function StatusBarSecondarySection(options: StatusBarSecondarySectionProp
             <span style={ICON_STYLE}>{zoomLevel}%</span>
           </Button>
         </ActionTooltip>
+      )}
+      {onOpenWorkbench && (
+        <StatusLinkButton
+          compact={compact}
+          icon={GridFour}
+          labelKey="status.workbench.label"
+          locale={locale}
+          onClick={onOpenWorkbench}
+          testId="status-workbench"
+          tooltipKey="status.workbench.open"
+        />
       )}
       {onOpenFeedback && <FeedbackButton compact={compact} locale={locale} onOpenFeedback={onOpenFeedback} />}
       {onOpenDocs && <DocsButton compact={compact} locale={locale} onOpenDocs={onOpenDocs} />}

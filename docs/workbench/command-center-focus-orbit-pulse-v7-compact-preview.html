@@ -1,0 +1,1844 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Tolaria 工作台首卡与今日脉冲 V7 紧凑版</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Tolaria 工作台首卡与今日脉冲 V7 紧凑版" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;Tolaria 工作台首卡与今日脉冲 V7 紧凑版&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --red: light-dark(rgb(186 38 35), rgb(250 66 62));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: var(--border-radius-lg, 12.5px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: superellipse(1.5);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: superellipse(1.5);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+    [aria-pressed=&quot;true&quot;],
+    [aria-selected=&quot;true&quot;],
+    .is-selected
+  ) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: 16px !important;
+  height: 16px !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;section id=&quot;tolaria-focus-orbit-pulse-v6&quot; aria-label=&quot;Tolaria 环形主线信号与今日脉冲视觉稿&quot;&gt;
+  &lt;style&gt;
+    #tolaria-focus-orbit-pulse-v6 {
+      --tolaria-v6-stage: light-dark(rgb(245 250 251), rgb(8 23 29));
+      --tolaria-v6-surface: light-dark(rgb(255 255 255), rgb(16 34 43));
+      --tolaria-v6-soft: light-dark(rgb(244 250 251), rgb(19 43 52));
+      --tolaria-v6-active: light-dark(rgb(226 246 248), rgb(20 62 71));
+      --tolaria-v6-foreground: light-dark(rgb(31 49 70), rgb(225 238 243));
+      --tolaria-v6-muted: light-dark(rgb(94 121 141), rgb(151 177 188));
+      --tolaria-v6-border: light-dark(rgb(194 220 226), rgb(42 78 89));
+      --tolaria-v6-primary: light-dark(rgb(5 149 170), rgb(72 211 226));
+      --tolaria-v6-primary-foreground: light-dark(rgb(255 255 255), rgb(8 29 35));
+      --tolaria-v6-shadow: light-dark(rgb(34 85 100 / 10%), rgb(0 0 0 / 32%));
+      color-scheme: light dark;
+      color: var(--tolaria-v6-foreground);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, sans-serif;
+      width: 100%;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 * {
+      box-sizing: border-box;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 p,
+    #tolaria-focus-orbit-pulse-v6 h2,
+    #tolaria-focus-orbit-pulse-v6 h3 {
+      margin: 0;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 button {
+      color: inherit;
+      font: inherit;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-stage {
+      background:
+        radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--tolaria-v6-primary) 5%, transparent), transparent 32%),
+        var(--tolaria-v6-stage);
+      padding: clamp(14px, 2.2vw, 24px);
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-layout {
+      align-items: stretch;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: minmax(0, 1.65fr) minmax(17rem, 0.7fr);
+      margin-inline: auto;
+      max-width: 90rem;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-command,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse {
+      background: var(--tolaria-v6-surface);
+      border: 1px solid var(--tolaria-v6-border);
+      border-radius: 19px;
+      box-shadow: 0 15px 36px var(--tolaria-v6-shadow);
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) 50px;
+      height: 368px;
+      overflow: hidden;
+      padding: 18px 22px;
+      position: relative;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-command::before,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse::before {
+      background: linear-gradient(90deg, var(--tolaria-v6-primary), color-mix(in srgb, var(--tolaria-v6-primary) 20%, transparent), transparent 76%);
+      content: &quot;&quot;;
+      height: 2px;
+      left: 22px;
+      position: absolute;
+      right: 22px;
+      top: 0;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-header,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse-header,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-actions,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-status,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-live,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse-footer,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-metric,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-row {
+      align-items: center;
+      display: flex;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-header,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse-header,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-metric,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-row {
+      justify-content: space-between;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-eyebrow,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-status,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-live,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence-mode,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-caption {
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-eyebrow,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-status,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-live,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence-mode,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-caption,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-center strong {
+      color: var(--tolaria-v6-primary);
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-eyebrow,
+    #tolaria-focus-orbit-pulse-v6 h2,
+    #tolaria-focus-orbit-pulse-v6 h3,
+    #tolaria-focus-orbit-pulse-v6 strong,
+    #tolaria-focus-orbit-pulse-v6 button {
+      font-weight: 500;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-status,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-live {
+      gap: 7px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-status {
+      background: color-mix(in srgb, var(--tolaria-v6-active) 72%, transparent);
+      border: 1px solid color-mix(in srgb, var(--tolaria-v6-primary) 24%, var(--tolaria-v6-border));
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-status-dot {
+      animation: focus-v6-pulse 2.8s ease-out infinite;
+      background: var(--tolaria-v6-primary);
+      border-radius: 999px;
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--tolaria-v6-primary) 35%, transparent);
+      height: 7px;
+      width: 7px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-command-body {
+      align-items: center;
+      display: grid;
+      gap: 28px;
+      grid-template-columns: minmax(0, 1.08fr) minmax(350px, 0.92fr);
+      min-height: 0;
+      padding-block: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-kicker,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-summary,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-fact small,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence-copy,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse-footer,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-metric span,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-copy small,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-center small,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-row span {
+      color: var(--tolaria-v6-muted);
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-kicker {
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 h2 {
+      margin-block: 10px 12px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-summary {
+      max-width: 52ch;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-facts {
+      border-block: 1px solid color-mix(in srgb, var(--tolaria-v6-border) 72%, transparent);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 13px;
+      padding-block: 7px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-fact {
+      border-left: 1px solid color-mix(in srgb, var(--tolaria-v6-border) 72%, transparent);
+      display: grid;
+      gap: 2px;
+      padding-inline: 12px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-fact:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-actions {
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-actions button {
+      align-items: center;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      gap: 8px;
+      justify-content: center;
+      padding: 8px 13px;
+      transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-primary {
+      background: var(--tolaria-v6-primary);
+      border: 1px solid var(--tolaria-v6-primary);
+      color: var(--tolaria-v6-primary-foreground);
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-secondary {
+      background: transparent;
+      border: 1px solid var(--tolaria-v6-border);
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-actions button:hover {
+      transform: translateY(-1px);
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-secondary:hover {
+      background: var(--tolaria-v6-active);
+      border-color: color-mix(in srgb, var(--tolaria-v6-primary) 42%, var(--tolaria-v6-border));
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-panel {
+      border-left: 1px solid color-mix(in srgb, var(--tolaria-v6-border) 88%, transparent);
+      display: grid;
+      grid-template-rows: 156px minmax(0, 1fr);
+      height: 224px;
+      padding-left: 28px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-scene {
+      margin-inline: auto;
+      position: relative;
+      width: 230px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-ring,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-center,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-track {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-ring {
+      border: 1px solid color-mix(in srgb, var(--tolaria-v6-primary) 27%, transparent);
+      border-radius: 50%;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-ring-one {
+      height: 148px;
+      width: 148px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-ring-two {
+      height: 96px;
+      transform: translate(-50%, -50%) rotate(29deg);
+      width: 220px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-ring-three {
+      height: 88px;
+      transform: translate(-50%, -50%) rotate(-24deg);
+      width: 206px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-center {
+      align-items: center;
+      background: color-mix(in srgb, var(--tolaria-v6-surface) 88%, transparent);
+      border: 1px solid color-mix(in srgb, var(--tolaria-v6-primary) 26%, var(--tolaria-v6-border));
+      border-radius: 50%;
+      box-shadow: 0 0 26px color-mix(in srgb, var(--tolaria-v6-primary) 10%, transparent);
+      display: flex;
+      flex-direction: column;
+      height: 92px;
+      justify-content: center;
+      width: 92px;
+      z-index: 2;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-track {
+      animation: focus-v6-orbit 8s linear infinite;
+      height: 148px;
+      width: 148px;
+      z-index: 3;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-dot {
+      background: var(--tolaria-v6-primary);
+      border: 3px solid var(--tolaria-v6-surface);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--tolaria-v6-primary) 12%, transparent), 0 0 15px color-mix(in srgb, var(--tolaria-v6-primary) 42%, transparent);
+      height: 15px;
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      width: 15px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-evidence {
+      align-self: end;
+      display: grid;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-caption {
+      margin-bottom: 4px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-row {
+      border-bottom: 1px solid color-mix(in srgb, var(--tolaria-v6-border) 76%, transparent);
+      padding-block: 3px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-row:last-child {
+      border-bottom: 0;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse-footer {
+      background: color-mix(in srgb, var(--tolaria-v6-active) 56%, transparent);
+      border: 1px solid color-mix(in srgb, var(--tolaria-v6-primary) 18%, transparent);
+      border-radius: 10px;
+      min-height: 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence {
+      display: grid;
+      gap: 9px;
+      grid-template-columns: 28px minmax(0, 1fr) auto;
+      padding: 8px 11px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence-mark {
+      align-items: center;
+      background: color-mix(in srgb, var(--tolaria-v6-primary) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--tolaria-v6-primary) 35%, transparent);
+      border-radius: 8px;
+      color: var(--tolaria-v6-primary);
+      display: inline-flex;
+      height: 28px;
+      justify-content: center;
+      width: 28px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence-copy {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence-copy strong {
+      color: var(--tolaria-v6-foreground);
+      margin-right: 7px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse {
+      background:
+        radial-gradient(circle at 78% 21%, color-mix(in srgb, var(--tolaria-v6-primary) 10%, transparent), transparent 32%),
+        var(--tolaria-v6-surface);
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse-main {
+      align-items: center;
+      display: grid;
+      gap: 15px;
+      grid-template-columns: 136px minmax(0, 1fr);
+      min-height: 0;
+      padding-block: 14px 12px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar {
+      aspect-ratio: 1;
+      margin-inline: auto;
+      max-width: 132px;
+      position: relative;
+      width: 100%;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar svg {
+      display: block;
+      height: 100%;
+      overflow: visible;
+      width: 100%;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-orbit,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-grid,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-track,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-arc,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-axis {
+      fill: none;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-orbit {
+      stroke: color-mix(in srgb, var(--tolaria-v6-primary) 24%, transparent);
+      stroke-dasharray: 2 5;
+      stroke-width: 1;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-grid,
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-axis {
+      stroke: color-mix(in srgb, var(--tolaria-v6-primary) 15%, transparent);
+      stroke-width: 1;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-track {
+      stroke: color-mix(in srgb, var(--tolaria-v6-border) 70%, transparent);
+      stroke-width: 9;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-arc {
+      stroke: var(--tolaria-v6-primary);
+      stroke-linecap: round;
+      stroke-width: 9;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-node {
+      fill: var(--tolaria-v6-primary);
+      stroke: var(--tolaria-v6-surface);
+      stroke-width: 3;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-sweep {
+      animation: focus-v6-radar-rotate 9s linear infinite;
+      background: conic-gradient(from 0deg, transparent 0 72%, color-mix(in srgb, var(--tolaria-v6-primary) 15%, transparent) 92%, transparent 100%);
+      border-radius: 999px;
+      inset: 10px;
+      position: absolute;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-copy {
+      display: grid;
+      inset: 0;
+      place-content: center;
+      position: absolute;
+      text-align: center;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-copy strong {
+      color: var(--tolaria-v6-primary);
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-metrics {
+      display: grid;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-metric {
+      border-bottom: 1px solid color-mix(in srgb, var(--tolaria-v6-border) 78%, transparent);
+      gap: 9px;
+      padding-block: 10px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-metric:last-child {
+      border-bottom: 0;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-metric-label {
+      align-items: center;
+      display: inline-flex;
+      gap: 7px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-metric-signal {
+      background: var(--tolaria-v6-primary);
+      border-radius: 999px;
+      box-shadow: 0 0 9px color-mix(in srgb, var(--tolaria-v6-primary) 35%, transparent);
+      height: 5px;
+      width: 5px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse-footer {
+      gap: 8px;
+      justify-content: space-between;
+      padding: 8px 10px;
+    }
+
+    #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse-footer strong {
+      color: var(--tolaria-v6-primary);
+      letter-spacing: 0.06em;
+    }
+
+    @keyframes focus-v6-orbit {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes focus-v6-radar-rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes focus-v6-pulse {
+      70% { box-shadow: 0 0 0 7px transparent; }
+      100% { box-shadow: 0 0 0 0 transparent; }
+    }
+
+    @media (max-width: 1080px) {
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-command-body {
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr);
+      }
+    }
+
+    @media (max-width: 980px) {
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-layout {
+        grid-template-columns: 1fr;
+      }
+
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-command,
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse {
+        height: auto;
+        min-height: 368px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-command,
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse {
+        grid-template-rows: auto auto auto;
+        padding: 17px;
+      }
+
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-command-body,
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-pulse-main {
+        grid-template-columns: 1fr;
+      }
+
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-panel {
+        border-left: 0;
+        border-top: 1px solid color-mix(in srgb, var(--tolaria-v6-border) 88%, transparent);
+        height: 238px;
+        padding-left: 0;
+        padding-top: 14px;
+      }
+
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence {
+        grid-template-columns: 28px minmax(0, 1fr);
+      }
+
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence-copy {
+        white-space: normal;
+      }
+
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-evidence-mode {
+        display: none;
+      }
+    }
+
+    @media (max-width: 460px) {
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-facts {
+        grid-template-columns: 1fr;
+      }
+
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-fact {
+        border-left: 0;
+        border-top: 1px solid color-mix(in srgb, var(--tolaria-v6-border) 72%, transparent);
+        padding: 7px 0;
+      }
+
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-fact:first-child {
+        border-top: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-status-dot,
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-orbit-track,
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-radar-sweep {
+        animation: none;
+      }
+
+      #tolaria-focus-orbit-pulse-v6 .focus-v6-actions button {
+        transition: none;
+      }
+    }
+  &lt;/style&gt;
+
+  &lt;div class=&quot;focus-v6-stage&quot;&gt;
+    &lt;div class=&quot;focus-v6-layout&quot;&gt;
+      &lt;article class=&quot;focus-v6-command&quot; aria-labelledby=&quot;focus-v6-command-title&quot;&gt;
+        &lt;header class=&quot;focus-v6-header&quot;&gt;
+          &lt;p class=&quot;focus-v6-eyebrow&quot;&gt;&lt;small&gt;Context brief / 本地摘要&lt;/small&gt;&lt;/p&gt;
+          &lt;p class=&quot;focus-v6-status&quot;&gt;&lt;span class=&quot;focus-v6-status-dot&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;small&gt;今日主线 · 实时&lt;/small&gt;&lt;/p&gt;
+        &lt;/header&gt;
+
+        &lt;div class=&quot;focus-v6-command-body&quot;&gt;
+          &lt;section class=&quot;focus-v6-copy&quot;&gt;
+            &lt;p class=&quot;focus-v6-kicker&quot;&gt;&lt;small&gt;今天优先推进 · Priority 01&lt;/small&gt;&lt;/p&gt;
+            &lt;h2 id=&quot;focus-v6-command-title&quot;&gt;Build Laputa App&lt;/h2&gt;
+            &lt;p class=&quot;focus-v6-summary&quot;&gt;6 条最近更新中最明确的可推进事项。它仍处于 Active 状态，并与 8 条笔记保持关联。&lt;/p&gt;
+
+            &lt;div class=&quot;focus-v6-facts&quot; aria-label=&quot;决策摘要&quot;&gt;
+              &lt;div class=&quot;focus-v6-fact&quot;&gt;&lt;strong&gt;Active&lt;/strong&gt;&lt;small&gt;原始状态&lt;/small&gt;&lt;/div&gt;
+              &lt;div class=&quot;focus-v6-fact&quot;&gt;&lt;strong&gt;8 条&lt;/strong&gt;&lt;small&gt;关联笔记&lt;/small&gt;&lt;/div&gt;
+              &lt;div class=&quot;focus-v6-fact&quot;&gt;&lt;strong&gt;10:16&lt;/strong&gt;&lt;small&gt;最近更新&lt;/small&gt;&lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;focus-v6-actions&quot;&gt;
+              &lt;button class=&quot;focus-v6-primary&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;&lt;span class=&quot;focus-v6-primary-label&quot;&gt;进入今日主线&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;&lt;/button&gt;
+              &lt;button class=&quot;focus-v6-secondary&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;&lt;span&gt;查看关联范围&lt;/span&gt;&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/section&gt;
+
+          &lt;aside class=&quot;focus-v6-orbit-panel&quot; aria-label=&quot;主线信号与选择依据&quot;&gt;
+            &lt;div class=&quot;focus-v6-orbit-scene&quot; role=&quot;img&quot; aria-label=&quot;一个浮点绕主线信号中心缓慢运行&quot;&gt;
+              &lt;span class=&quot;focus-v6-orbit-ring focus-v6-orbit-ring-one&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;focus-v6-orbit-ring focus-v6-orbit-ring-two&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;focus-v6-orbit-ring focus-v6-orbit-ring-three&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;focus-v6-orbit-track&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;focus-v6-orbit-dot&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+              &lt;span class=&quot;focus-v6-orbit-center&quot;&gt;&lt;strong&gt;Active&lt;/strong&gt;&lt;small&gt;主线信号&lt;/small&gt;&lt;/span&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;focus-v6-orbit-evidence&quot; aria-label=&quot;主线选择依据&quot;&gt;
+              &lt;p class=&quot;focus-v6-orbit-caption&quot;&gt;&lt;small&gt;Signal evidence / 选择依据&lt;/small&gt;&lt;/p&gt;
+              &lt;div class=&quot;focus-v6-orbit-row&quot;&gt;&lt;span&gt;候选范围&lt;/span&gt;&lt;strong&gt;6&lt;/strong&gt;&lt;/div&gt;
+              &lt;div class=&quot;focus-v6-orbit-row&quot;&gt;&lt;span&gt;关联密度&lt;/span&gt;&lt;strong&gt;8&lt;/strong&gt;&lt;/div&gt;
+              &lt;div class=&quot;focus-v6-orbit-row&quot;&gt;&lt;span&gt;数据来源&lt;/span&gt;&lt;strong&gt;本地笔记&lt;/strong&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/aside&gt;
+        &lt;/div&gt;
+
+        &lt;footer class=&quot;focus-v6-evidence&quot;&gt;
+          &lt;span class=&quot;focus-v6-evidence-mark&quot; aria-hidden=&quot;true&quot;&gt;✦&lt;/span&gt;
+          &lt;p class=&quot;focus-v6-evidence-copy&quot;&gt;&lt;strong&gt;为什么是它&lt;/strong&gt;&lt;span class=&quot;focus-v6-reason-text&quot;&gt;依据最近更新时间、原始状态与关联范围生成，只呈现事实，不推断完成率或生产力。&lt;/span&gt;&lt;/p&gt;
+          &lt;small class=&quot;focus-v6-evidence-mode&quot; aria-live=&quot;polite&quot;&gt;Local / read only&lt;/small&gt;
+        &lt;/footer&gt;
+      &lt;/article&gt;
+
+      &lt;aside class=&quot;focus-v6-pulse&quot; aria-labelledby=&quot;focus-v6-pulse-title&quot;&gt;
+        &lt;header class=&quot;focus-v6-pulse-header&quot;&gt;
+          &lt;h3 id=&quot;focus-v6-pulse-title&quot;&gt;今日脉冲&lt;/h3&gt;
+          &lt;p class=&quot;focus-v6-live&quot;&gt;&lt;span class=&quot;focus-v6-status-dot&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;small&gt;Live signal&lt;/small&gt;&lt;/p&gt;
+        &lt;/header&gt;
+
+        &lt;div class=&quot;focus-v6-pulse-main&quot;&gt;
+          &lt;div class=&quot;focus-v6-radar&quot; role=&quot;img&quot; aria-label=&quot;当前保管库有 6 条最近更新&quot;&gt;
+            &lt;span class=&quot;focus-v6-radar-sweep&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+            &lt;svg viewBox=&quot;0 0 144 144&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;circle class=&quot;focus-v6-radar-orbit&quot; cx=&quot;72&quot; cy=&quot;72&quot; r=&quot;66&quot;&gt;&lt;/circle&gt;
+              &lt;circle class=&quot;focus-v6-radar-grid&quot; cx=&quot;72&quot; cy=&quot;72&quot; r=&quot;52&quot;&gt;&lt;/circle&gt;
+              &lt;path class=&quot;focus-v6-radar-axis&quot; d=&quot;M72 6V138M6 72H138&quot;&gt;&lt;/path&gt;
+              &lt;circle class=&quot;focus-v6-radar-track&quot; cx=&quot;72&quot; cy=&quot;72&quot; r=&quot;43&quot;&gt;&lt;/circle&gt;
+              &lt;circle class=&quot;focus-v6-radar-arc&quot; cx=&quot;72&quot; cy=&quot;72&quot; r=&quot;43&quot; pathLength=&quot;100&quot; stroke-dasharray=&quot;61 39&quot; transform=&quot;rotate(-90 72 72)&quot;&gt;&lt;/circle&gt;
+              &lt;circle class=&quot;focus-v6-radar-node&quot; cx=&quot;72&quot; cy=&quot;29&quot; r=&quot;5&quot;&gt;&lt;/circle&gt;
+            &lt;/svg&gt;
+            &lt;p class=&quot;focus-v6-radar-copy&quot;&gt;&lt;strong&gt;6&lt;/strong&gt;&lt;small&gt;Update signal&lt;/small&gt;&lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;focus-v6-metrics&quot; aria-label=&quot;今日实时指标&quot;&gt;
+            &lt;div class=&quot;focus-v6-metric&quot;&gt;&lt;span class=&quot;focus-v6-metric-label&quot;&gt;&lt;span class=&quot;focus-v6-metric-signal&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;活跃笔记&lt;/span&gt;&lt;strong&gt;9,025&lt;/strong&gt;&lt;/div&gt;
+            &lt;div class=&quot;focus-v6-metric&quot;&gt;&lt;span class=&quot;focus-v6-metric-label&quot;&gt;&lt;span class=&quot;focus-v6-metric-signal&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;待推进&lt;/span&gt;&lt;strong&gt;6&lt;/strong&gt;&lt;/div&gt;
+            &lt;div class=&quot;focus-v6-metric&quot;&gt;&lt;span class=&quot;focus-v6-metric-label&quot;&gt;&lt;span class=&quot;focus-v6-metric-signal&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;收藏&lt;/span&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;footer class=&quot;focus-v6-pulse-footer&quot;&gt;
+          &lt;span&gt;&lt;small&gt;保管库只读快照 · 数字只描述当前状态&lt;/small&gt;&lt;/span&gt;
+          &lt;strong&gt;&lt;small&gt;6 signals&lt;/small&gt;&lt;/strong&gt;
+        &lt;/footer&gt;
+      &lt;/aside&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    (() =&gt; {
+      const root = document.getElementById(&quot;tolaria-focus-orbit-pulse-v6&quot;);
+      if (!root) return;
+
+      const primary = root.querySelector(&quot;.focus-v6-primary&quot;);
+      const primaryLabel = root.querySelector(&quot;.focus-v6-primary-label&quot;);
+      const secondary = root.querySelector(&quot;.focus-v6-secondary&quot;);
+      const reason = root.querySelector(&quot;.focus-v6-reason-text&quot;);
+      const feedback = root.querySelector(&quot;.focus-v6-evidence-mode&quot;);
+      const defaultReason = &quot;依据最近更新时间、原始状态与关联范围生成，只呈现事实，不推断完成率或生产力。&quot;;
+      const detailReason = &quot;事实范围：10:16 最近更新 · Active 原始状态 · 8 条关联笔记。&quot;;
+
+      primary?.addEventListener(&quot;click&quot;, () =&gt; {
+        const focused = primary.getAttribute(&quot;aria-pressed&quot;) !== &quot;true&quot;;
+        primary.setAttribute(&quot;aria-pressed&quot;, String(focused));
+        if (primaryLabel) primaryLabel.textContent = focused ? &quot;已进入今日主线&quot; : &quot;进入今日主线&quot;;
+        if (feedback) feedback.textContent = focused ? &quot;Focus locked&quot; : &quot;Local / read only&quot;;
+      });
+
+      secondary?.addEventListener(&quot;click&quot;, () =&gt; {
+        const expanded = secondary.getAttribute(&quot;aria-pressed&quot;) !== &quot;true&quot;;
+        secondary.setAttribute(&quot;aria-pressed&quot;, String(expanded));
+        if (reason) reason.textContent = expanded ? detailReason : defaultReason;
+        if (feedback) feedback.textContent = expanded ? &quot;Evidence trace&quot; : &quot;Local / read only&quot;;
+      });
+    })();
+  &lt;/script&gt;
+&lt;/section&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =&gt;
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest(&quot;[data-tooltip]&quot;)
+      : null;
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
+    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
+    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
+    document.removeEventListener(&quot;focusout&quot;, handleLeave);
+    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
+    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
+  document.addEventListener(&quot;pointerout&quot;, handleLeave);
+  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
+  document.addEventListener(&quot;focusout&quot;, handleLeave);
+  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</body>
+</html>

@@ -281,6 +281,49 @@ Desktop startup registers `tauri-plugin-deep-link` and `tauri-plugin-single-inst
 Linux and Windows use custom React-rendered window chrome instead of the native Tauri menu bar. `setup_custom_window_chrome()` drops server-side decorations on the main window, `openNoteInNewWindow()` does the same for detached note windows, and `LinuxTitlebar`/`LinuxMenuButton` route both window controls and menu actions back through the same shared command pipeline that the desktop native menus use. The native app menu is macOS-only so Services/Hide/Quit, the reserved `WINDOW_SUBMENU_ID`, and its predefined `Cmd+Ctrl+F` fullscreen item keep behaving like normal NSApp menu items, while cross-platform custom items such as Check for Updates emit Tolaria command IDs with visible updater feedback from the renderer menu. An audited local AppKit key monitor consumes physical Escape only while the main window is fullscreen and the renderer has registered a visible dismissable surface, then redispatches Escape into the webview so the surface closes before native fullscreen handles the next bare Escape.
 On Linux, `run()` applies WebKitGTK startup safeguards before Tauri creates the webview. Native Wayland launches and AppImage launches inject `WEBKIT_DISABLE_DMABUF_RENDERER=1` and `WEBKIT_DISABLE_COMPOSITING_MODE=1` independently unless the user already set either variable, covering compositor-specific WebKit crashes without changing native X11 launches. AppImage launches keep the additional AppImage-only safeguards: on Wayland sessions Tolaria re-execs once with the first architecture-matching system `libwayland-client.so` in `LD_PRELOAD` when the user has not provided their own preload. The candidate order prefers Fedora-style `lib64` and Debian-style `x86_64-linux-gnu` paths before generic `/usr/lib`, and the ELF header is checked so a 64-bit Tolaria process does not retry with a 32-bit Wayland client library. Runtime startup writes a mount-path-specific `GTK_IM_MODULE_FILE` cache when fcitx is configured via `GTK_IM_MODULE=fcitx` or common fcitx environment hints; release packaging currently uses Tauri's stock linuxdeploy AppImage output plugin instead of Tolaria's experimental output-plugin shim. If the user has not already chosen `GTK_IM_MODULE`, Tolaria sets `GTK_IM_MODULE=fcitx` before WebKit starts. The same AppImage path checks whether `fc-match` resolves the default emoji font to `Noto-COLRv1.ttf`; when the user has not provided `FONTCONFIG_FILE` or `FONTCONFIG_PATH`, Tolaria writes a cache-local fontconfig file that rejects only that matched font file and exports it before WebKit starts. The rendering overrides keep WebViews from blanking or crashing after accelerated compositing/DMA-BUF failures, the re-exec addresses AppImage library-order failures that can surface as `Could not create default EGL display: EGL_BAD_PARAMETER`, and the fontconfig guard avoids known WebKit crashes in COLRv1 emoji font rendering while leaving other emoji fonts available.
 
+### Renderer-only workbench extension
+
+The downstream workbench feature begins at `src/features/workbench/` as a pure,
+renderer-side boundary. Its validated registry stores opaque template, internal-view,
+and widget ids plus immutable placement metadata. Built-in template composition is kept
+outside the generic registry, so a later template adds a manifest and one registration
+entry without changing Tolaria's data model.
+
+`buildWorkbenchModel()` consumes only the `VaultEntry[]`, `ViewFile[]`, and `FolderNode[]`
+already loaded by `MainApp`. It filters active Markdown content into bounded recent,
+favorite, status, and relationship projections, and delegates view, Type, and folder
+destination counts to the existing `filterEntries()` navigation rules. It performs no
+IPC, vault scan, body load, or write, and it does not mutate its inputs. The Knowledge
+projection groups active Markdown notes by existing Type definitions and records only
+note counts plus actual linked-entry coverage; constellation lines represent the
+whole-vault-to-Type navigation hierarchy, not inferred semantic similarity.
+
+Template and internal-view preferences are installation-local under
+`tolaria.workbench.preferences.v1`, with schema/id validation and browser event
+synchronization. `createWorkbenchController()` exposes a framework-independent,
+subscribable snapshot and keeps open/closed state transient. The close-first navigation
+adapter forwards Tolaria's existing `SidebarSelection` and `VaultEntry` objects without
+introducing a parallel navigation model. The DOM-free `WorkbenchSurface` and its
+`useSyncExternalStore` binding now provide the conditional host boundary without owning
+the controller or importing official components. `WorkbenchRenderer` resolves the active
+template through a separate built-in renderer map, so React composition does not leak
+into the metadata registry or `App.tsx`. `MainApp` constructs and disposes one controller,
+memoizes the read-only model from its existing entries/folders/views, injects canonical
+navigation callbacks, and wraps only the official NoteList/PulseView plus Editor region.
+Detached note windows do not expose the entry. Sidebar and StatusBar remain mounted. The
+Command Center Focus, Knowledge, and Projects views and all of their semantic-token styling stay
+inside the feature boundary. The Knowledge view owns its Type constellation, selected
+node inspector, relationship-health summary, recent connected-note stream, and existing
+navigation portals without adding a graph dependency or another persistence layer. See
+[ADR-0180](adr/0180-pluggable-workbench-template-shell.md) and
+[WORKBENCH-TEMPLATES.md](WORKBENCH-TEMPLATES.md).
+
+The Appearance panel mounts the feature-owned `WorkbenchStyleSettings` control. Its
+options come directly from the template registry, and selection writes the same
+versioned renderer preference observed by the application controller. This keeps the
+official Settings data model, Rust serialization, and vault content untouched while a
+new registered template automatically becomes selectable.
+
 ## Multi-Window (Note Windows)
 
 Notes can be opened in separate Tauri windows for focused editing. Secondary windows boot the same `App` shell and load the same active workspace graph as the main window, but they start in the editor-only view mode with side panels collapsed.

@@ -419,6 +419,64 @@ type CollectionPresentationConfig =
 
 This layer is intentionally internal and behavior-preserving. It lets future presentations such as board, calendar, table, timeline, or graph consume the same resolved collection model instead of branching directly on sidebar state. Presentation config maps existing note properties; it does not create a separate data model.
 
+### Workbench core
+
+The downstream workbench is isolated under `src/features/workbench/` and exposes its
+core through a feature facade. `workbenchRegistry.ts` validates generic template
+metadata but does not know about any built-in layout. Individual manifests own stable
+template, internal-view, and widget ids; `builtInWorkbenchTemplates.ts` is the single
+composition point. This keeps future template registration outside application state
+and outside the generic registry implementation.
+
+`buildWorkbenchModel()` is the read-only adapter between Tolaria's loaded vault graph
+and future workbench templates. It accepts readonly `VaultEntry`, `ViewFile`, and
+`FolderNode` arrays and returns bounded recent, favorite, status, relationship,
+Type-cluster, and navigation summaries. Saved-view, Type, and folder counts pass through
+the canonical `filterEntries()` boundary, so the workbench does not duplicate collection
+membership rules. The adapter performs no IPC, filesystem read, content load, or mutation.
+
+`workbenchPreferences.ts` owns only the versioned installation-local
+`tolaria.workbench.preferences.v1` value. Invalid JSON, schema versions, templates, and
+internal views normalize through registry defaults. Successful writes can publish the
+namespaced `tolaria:workbench-preferences-changed` event, while subscribers also observe
+the browser `storage` event for other renderer windows. No workbench preference is stored
+in native Settings, vault configuration, or note frontmatter.
+
+`createWorkbenchController()` composes that registry and preference boundary into a
+small subscribable state object. It keeps open/closed state in memory, deduplicates
+transitions, and preserves a valid in-session selection when storage is unavailable.
+`createWorkbenchNavigation()` closes this surface before forwarding the original
+`SidebarSelection` or `VaultEntry` to Tolaria's canonical callbacks. These core and
+navigation abstractions import neither React, Tauri, nor application components.
+
+`useWorkbenchController()` is that narrow React adapter: it subscribes to an injected
+controller with `useSyncExternalStore` but leaves construction and disposal at the
+application composition point. `WorkbenchSurface` adds no wrapper DOM or styling. It
+selects between injected official content and an injected workbench renderer, ensuring
+the host cannot grow into a parallel shell or take ownership of Tolaria navigation.
+
+`MainApp` is now that single composition point: it constructs one controller, disposes it
+with the application lifecycle, and places `WorkbenchSurface` around only the ordinary
+NoteList/PulseView plus Editor region. The main-window `StatusBar` receives one optional
+open callback; detached note windows leave it undefined.
+`WorkbenchRenderer` resolves the selected template through the feature-owned
+`builtInWorkbenchRenderers` map and renders a localized safe fallback for missing
+registrations. `useWorkbenchNavigation` keeps adapter construction inside the feature,
+leaving `MainApp` to supply only its existing close, note-open, and selection callbacks.
+The first `CommandCenterTemplate` Focus view and its feature-local
+`CommandCenterKnowledgeView` and `CommandCenterProjectsView` consume the injected
+bounded model and semantic tokens; no
+workbench layout rule is added to official CSS and neither view imports Tolaria state
+owners. Knowledge nodes are deterministic Type projections, while note and collection
+actions use the same injected close-first navigation adapter as Focus. The Projects view
+projects existing status groups, actionable entries, and recent entries into read-only
+lanes, a real-count pulse, a bounded queue, and a signal stream without inferring
+completion or adding another persistence model.
+`WorkbenchStyleSettings` is the corresponding narrow Appearance adapter. It enumerates
+the registry, persists through `workbenchPreferences.ts`, and publishes the same
+preference event consumed by the application controller. `SettingsPanel` owns neither a
+workbench draft nor template ids, and the native `Settings` schema remains unchanged.
+
 ### Saved Views
 
 Saved Views live as YAML files under `views/`. Their definition includes user-visible fields (`name`, `icon`, `color`), note-list preferences (`sort`, `listPropertiesDisplay`), filters, and an optional top-level `order` number. The renderer treats saved Views as the most configurable persisted Collection artifact. Existing top-level `sort` and `listPropertiesDisplay` fields normalize into the list presentation config, and a future nested `presentation` block may override them in memory when present. The `sort` value accepts built-in sort forms such as `"modified:desc"` and custom-property forms such as `"property:Priority:asc"` or bare `"Priority:asc"`; the renderer keeps configured custom-property sorts visible even when the current result set has no populated values for that property. Filter conditions on scalar-array custom properties, such as `tags: [blues, chicago]`, evaluate `contains`, `any_of`, and related set operators against exact array elements rather than substrings. The `order` value is stored directly in the YAML document, not in Markdown frontmatter, and lower values render earlier in every saved-View list. Views without an explicit order sort after ordered views by filename for stable fallback behavior.

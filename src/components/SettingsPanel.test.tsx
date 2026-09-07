@@ -514,6 +514,18 @@ describe('SettingsPanel', () => {
     })
   })
 
+  it('offers the registered workbench style under Appearance', () => {
+    renderOpenSettings()
+
+    expect(screen.getByText('Workbench style')).toBeInTheDocument()
+    expect(screen.getByText('Choose the information layout used by Workbench. Colors continue to follow the active theme.')).toBeInTheDocument()
+    const trigger = screen.getByTestId('settings-workbench-style')
+    expect(trigger).toHaveAttribute('data-value', 'command-center')
+
+    fireEvent.pointerDown(trigger, { button: 0, pointerType: 'mouse' })
+    expect(screen.getByRole('option', { name: 'Intelligent Command Center' })).toBeInTheDocument()
+  })
+
   it('imports, selects, and applies a valid theme configuration file', async () => {
     pickThemeExtensionFileMock.mockResolvedValue(JSON.stringify({
       ...BUILT_IN_THEME_PACKAGES[0],

@@ -73,6 +73,7 @@ import { useSettingsPanelAutofocus, useSettingsPanelFocusTrap } from './useSetti
 import { registerMacosDismissableEscapeSurface } from '../utils/macosDismissableEscapeSurface'
 import { ThemeExtensionSettings } from '../features/theme-extensions/ThemeExtensionSettings'
 import { EditorFontSettings } from '../features/theme-extensions/EditorFontSettings'
+import { WorkbenchStyleSettings } from '../features/workbench'
 
 interface SettingsPanelProps {
   open: boolean
@@ -839,6 +840,12 @@ function AppearanceSettingsSection({
           <ThemeModeControl value={themeMode} onChange={setThemeMode} t={t} />
           <ThemeExtensionSettings t={t} />
         </div>
+      </SettingsRow>
+      <SettingsRow
+        label={t('settings.workbenchStyle.label')}
+        description={t('settings.workbenchStyle.description')}
+      >
+        <WorkbenchStyleSettings t={t} />
       </SettingsRow>
       <SettingsRow label={t('settings.editorFont.label')} description={t('settings.editorFont.description')}>
         <EditorFontSettings t={t} />

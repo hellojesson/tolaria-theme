@@ -31,6 +31,7 @@ function renderDenseStatusBar() {
       remoteStatus={{ branch: 'main', ahead: 0, behind: 0, hasRemote: false }}
       onCommitPush={vi.fn()}
       onClickPulse={vi.fn()}
+      onOpenWorkbench={vi.fn()}
       onOpenFeedback={vi.fn()}
       buildNumber="b281"
       onCheckForUpdates={vi.fn()}
@@ -115,6 +116,27 @@ describe('StatusBar', () => {
     render(<StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} onOpenFeedback={onOpenFeedback} />)
     fireEvent.click(screen.getByTestId('status-feedback'))
     expect(onOpenFeedback).toHaveBeenCalledOnce()
+  })
+
+  it('opens Workbench from the control immediately before Contribute', () => {
+    const onOpenWorkbench = vi.fn()
+    render(
+      <StatusBar
+        noteCount={100}
+        vaultPath="/Users/luca/Laputa"
+        vaults={vaults}
+        onSwitchVault={vi.fn()}
+        onOpenWorkbench={onOpenWorkbench}
+        onOpenFeedback={vi.fn()}
+      />,
+    )
+
+    const workbench = screen.getByTestId('status-workbench')
+    const contribute = screen.getByTestId('status-feedback')
+    expect(workbench.compareDocumentPosition(contribute)).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
+
+    fireEvent.click(workbench)
+    expect(onOpenWorkbench).toHaveBeenCalledOnce()
   })
 
   it('shows and opens Docs from the bottom bar', () => {
@@ -571,9 +593,11 @@ describe('StatusBar', () => {
     })
     expect(screen.getByTestId('status-commit-push')).toBeInTheDocument()
     expect(screen.getByTestId('status-pulse')).toBeInTheDocument()
+    expect(screen.getByTestId('status-workbench')).toBeInTheDocument()
     expect(screen.getByTestId('status-feedback')).toBeInTheDocument()
     expect(screen.queryByText('Commit')).not.toBeInTheDocument()
     expect(screen.queryByText('History')).not.toBeInTheDocument()
+    expect(screen.queryByText('Workbench')).not.toBeInTheDocument()
     expect(screen.queryByText('Contribute')).not.toBeInTheDocument()
   })
 

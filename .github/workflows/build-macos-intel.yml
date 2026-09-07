@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - feature/pluggable-theme-v2026-08-19
+      - feature/workbench-template-v2026-09-02
 
 permissions:
   contents: read

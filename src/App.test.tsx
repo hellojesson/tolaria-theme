@@ -6,6 +6,19 @@ import { formatShortcutDisplay } from './hooks/appCommandCatalog'
 import { invoke } from '@tauri-apps/api/core'
 import type { Settings, ViewDefinition, ViewFile } from './types'
 
+const buildWorkbenchModelSpy = vi.hoisted(() => vi.fn())
+
+vi.mock('./features/workbench/core/buildWorkbenchModel', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('./features/workbench/core/buildWorkbenchModel')>()
+  return {
+    ...actual,
+    buildWorkbenchModel: (...args: Parameters<typeof actual.buildWorkbenchModel>) => {
+      buildWorkbenchModelSpy()
+      return actual.buildWorkbenchModel(...args)
+    },
+  }
+})
+
 // Provide a localStorage mock that supports all methods (jsdom's may be incomplete)
 const localStorageMock = (() => {
   let store: Record<string, string> = {}
@@ -1253,6 +1266,42 @@ describe('App', () => {
     // The status bar element should exist in the DOM
     const appShell = document.querySelector('.app-shell')
     expect(appShell).toBeInTheDocument()
+  })
+
+  it('opens and closes Workbench while keeping the official shell mounted', async () => {
+    render(<App />)
+    await screen.findByText('All Notes')
+    expect(await screen.findByTestId('note-list-container')).toBeInTheDocument()
+
+    fireEvent.click(screen.getByTestId('status-workbench'))
+
+    const workbench = await screen.findByTestId('workbench-command-center')
+    expect(within(workbench).getAllByText('Test Project').length).toBeGreaterThan(0)
+    expect(screen.getByText('All Notes')).toBeInTheDocument()
+    expect(screen.queryByTestId('note-list-container')).not.toBeInTheDocument()
+
+    fireEvent.click(within(workbench).getByRole('tab', { name: /Knowledge/ }))
+    expect(await within(workbench).findByRole('heading', { name: 'Knowledge constellation' })).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Close workbench' }))
+
+    expect(await screen.findByTestId('note-list-container')).toBeInTheDocument()
+    expect(screen.queryByTestId('workbench-command-center')).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByTestId('status-workbench'))
+    expect(await screen.findByRole('heading', { name: 'Knowledge constellation' })).toBeInTheDocument()
+  })
+
+  it('builds the Workbench model only after the Workbench is opened', async () => {
+    render(<App />)
+    await screen.findByText('All Notes')
+
+    expect(buildWorkbenchModelSpy).not.toHaveBeenCalled()
+
+    fireEvent.click(screen.getByTestId('status-workbench'))
+
+    expect(await screen.findByTestId('workbench-command-center')).toBeInTheDocument()
+    expect(buildWorkbenchModelSpy).toHaveBeenCalled()
   })
 
   it('switches vaults from the bottom bar after onboarding is ready', async () => {
