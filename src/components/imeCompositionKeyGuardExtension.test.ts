@@ -1,5 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
+import { Schema } from '@tiptap/pm/model'
+import { EditorState } from '@tiptap/pm/state'
+import { EditorView } from '@tiptap/pm/view'
 import {
+  createSafariImeDomPreserverPlugin,
   createImeCompositionKeyGuardExtension,
   shouldStopComposingParagraphInput,
   shouldStopComposingEditorShortcutKey,
@@ -52,9 +56,33 @@ function dispatchRegisteredEvent(
   listener(event)
 }
 
+function createRichEditorViewFixture() {
+  const transaction = {
+    delete: vi.fn(),
+    insertText: vi.fn(),
+  }
+  transaction.delete.mockReturnValue(transaction)
+  transaction.insertText.mockReturnValue(transaction)
+  const view = {
+    composing: false,
+    dispatch: vi.fn(),
+    state: {
+      doc: { textBetween: vi.fn(() => '/table') },
+      selection: { empty: true, from: 7, to: 7 },
+      tr: transaction,
+    },
+  }
+  const suggestionMenu = {
+    openSuggestionMenu: vi.fn(),
+    shown: vi.fn(() => false),
+  }
+
+  return { suggestionMenu, transaction, view }
+}
+
 function createFixture() {
   const listeners: ListenerRegistry = new Map()
-  const view = { composing: false }
+  const { suggestionMenu, transaction, view } = createRichEditorViewFixture()
   const dom = {
     addEventListener: vi.fn((type: string, listener: EventListener) => {
       listeners.set(type, listener)
@@ -62,6 +90,7 @@ function createFixture() {
   }
   const editor = {
     _tiptapEditor: { view },
+    getExtension: vi.fn(() => suggestionMenu),
     prosemirrorView: view,
   }
   const extension = createImeCompositionKeyGuardExtension()({ editor: editor as never })
@@ -102,6 +131,8 @@ function createFixture() {
       })
       return controller
     },
+    suggestionMenu,
+    transaction,
     view,
   }
 }
@@ -225,6 +256,23 @@ describe('createImeCompositionKeyGuardExtension', () => {
     expect(event.preventDefault).not.toHaveBeenCalled()
   })
 
+  it('reopens a slash command committed by an IME after ProseMirror reconciles composition', () => {
+    vi.useFakeTimers()
+    const fixture = createFixture()
+    fixture.mount()
+
+    fixture.fireCompositionEnd({ data: '/table' })
+    vi.runAllTimers()
+
+    expect(fixture.transaction.delete).toHaveBeenCalledWith(1, 7)
+    expect(fixture.suggestionMenu.openSuggestionMenu).toHaveBeenCalledWith('/', {
+      deleteTriggerCharacter: true,
+    })
+    expect(fixture.transaction.insertText).toHaveBeenCalledWith('table')
+    expect(fixture.view.dispatch).toHaveBeenCalledTimes(2)
+    vi.useRealTimers()
+  })
+
   it('blocks one paragraph insertion emitted after a composing Enter ends', () => {
     const fixture = createFixture()
     fixture.mount()
@@ -272,5 +320,36 @@ describe('createImeCompositionKeyGuardExtension', () => {
 
     expect(event.stopImmediatePropagation).not.toHaveBeenCalled()
     expect(event.preventDefault).not.toHaveBeenCalled()
+  })
+})
+
+describe('createSafariImeDomPreserverPlugin', () => {
+  it('keeps an out-of-model sentinel beside composing text until Safari finishes the commit', () => {
+    const schema = new Schema({
+      nodes: {
+        doc: { content: 'paragraph+' },
+        paragraph: { content: 'text*', toDOM: () => ['p', 0] },
+        text: {},
+      },
+    })
+    const plugin = createSafariImeDomPreserverPlugin(true)
+    const state = EditorState.create({ schema, plugins: [plugin] })
+    const container = document.createElement('div')
+    const view = new EditorView(container, { state })
+
+    view.dom.dispatchEvent(new CompositionEvent('compositionstart', { bubbles: true }))
+    view.dispatch(view.state.tr.insertText("ce'shi"))
+
+    const sentinel = container.querySelector('[data-tolaria-ime-dom-preserver]')
+    expect(sentinel).not.toBeNull()
+    expect(sentinel?.textContent).toBe('\u200B')
+    expect(view.state.doc.textContent).toBe("ce'shi")
+
+    view.dom.dispatchEvent(new CompositionEvent('compositionend', { bubbles: true, data: '测试' }))
+    view.dispatch(view.state.tr.setMeta('ime-test-refresh', true))
+
+    expect(container.querySelector('[data-tolaria-ime-dom-preserver]')).toBeNull()
+    expect(view.state.doc.textContent).toBe("ce'shi")
+    view.destroy()
   })
 })

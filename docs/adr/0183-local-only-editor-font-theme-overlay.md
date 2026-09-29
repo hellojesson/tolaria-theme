@@ -1,15 +1,15 @@
 ---
 type: ADR
-id: "0179"
+id: "0183"
 title: "Local-only editor font preferences in the theme overlay"
 status: active
 date: 2026-08-31
-supersedes: "0178"
+supersedes: "0182"
 ---
 
 ## Context
 
-ADR-0178 introduced installable theme extensions as a downstream, installation-local color overlay. Its initial contract rejected typography so imported themes could not depend on external resources or the editor DOM. Chinese-heavy users need an explicit choice among macOS system typography, PingFang SC, Source Han Sans SC, and Source Han Serif SC without increasing the application bundle or weakening the theme boundary.
+ADR-0182 introduced installable theme extensions as a downstream, installation-local color overlay. Its initial contract rejected typography so imported themes could not depend on external resources or the editor DOM. Chinese-heavy users need an explicit choice among macOS system typography, PingFang SC, Source Han Sans SC, and Source Han Serif SC without increasing the application bundle or weakening the theme boundary.
 
 The integration must remain portable across upstream Tolaria updates. It must preserve the official Light, Dark, and System modes, accept existing color-only theme packages, avoid font downloads, and fall back safely when a named local font is unavailable.
 

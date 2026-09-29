@@ -2,18 +2,14 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { CodeBlockLanguageControls } from './codeBlockLanguageControls'
 
-function codeBlockDom(blockId = 'code-block-1') {
+function codeBlockDom() {
   const editorElement = document.createElement('div')
   editorElement.className = 'bn-editor'
   editorElement.setAttribute('contenteditable', 'false')
 
-  const editorRoot = document.createElement('div')
-  editorRoot.className = 'editor__blocknote-container'
-  const componentHost = document.createElement('div')
-
   const blockContainer = document.createElement('div')
   blockContainer.dataset.nodeType = 'blockContainer'
-  blockContainer.dataset.id = blockId
+  blockContainer.dataset.id = 'code-block-1'
 
   const blockContent = document.createElement('div')
   blockContent.className = 'bn-block-content'
@@ -29,15 +25,19 @@ function codeBlockDom(blockId = 'code-block-1') {
   blockContent.appendChild(controlHost)
   blockContainer.appendChild(blockContent)
   editorElement.appendChild(blockContainer)
-  editorRoot.append(editorElement, componentHost)
-  document.body.appendChild(editorRoot)
+  document.body.appendChild(editorElement)
 
-  return { componentHost, controlHost, editorElement, editorRoot, nativeControl }
+  return { editorElement, nativeControl }
 }
 
 describe('CodeBlockLanguageControls', () => {
   it('replaces a stale disabled native picker with a live shadcn language control', async () => {
-    const { componentHost, editorElement, editorRoot, nativeControl } = codeBlockDom()
+    const { editorElement, nativeControl } = codeBlockDom()
+    const controlRect = vi.spyOn(nativeControl, 'getBoundingClientRect').mockReturnValue({
+      height: 28,
+      left: 12,
+      top: 24,
+    } as DOMRect)
     editorElement.remove()
     const editor = {
       domElement: editorElement.parentElement,
@@ -47,11 +47,11 @@ describe('CodeBlockLanguageControls', () => {
       updateBlock: vi.fn(),
     }
 
-    render(<CodeBlockLanguageControls editor={editor as never} />, { container: componentHost })
+    render(<CodeBlockLanguageControls editor={editor as never} />)
 
     await act(async () => {
       editor.domElement = editorElement
-      editorRoot.prepend(editorElement)
+      document.body.appendChild(editorElement)
     })
 
     const trigger = await waitFor(() => {
@@ -59,9 +59,26 @@ describe('CodeBlockLanguageControls', () => {
       if (!control || control.tagName !== 'BUTTON') throw new Error('Language trigger was unavailable')
       return control
     })
-    expect(trigger.closest('[data-code-block-id]')).toHaveAttribute('data-code-block-id', 'code-block-1')
+    const overlay = trigger.closest('[data-code-block-id]')
+    expect(overlay).toHaveAttribute('data-code-block-id', 'code-block-1')
+    expect(overlay?.parentElement).toBe(document.body)
+    expect(overlay).toHaveStyle({ left: '12px', minHeight: '28px', top: '24px' })
     expect(trigger).toBeDisabled()
     expect(nativeControl).toBeDisabled()
+
+    const scrollFrames: FrameRequestCallback[] = []
+    const frame = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
+      scrollFrames.push(callback)
+      return scrollFrames.length
+    })
+    controlRect.mockReturnValue({ height: 28, left: 36, top: 8 } as DOMRect)
+    editor.getBlock.mockClear()
+    fireEvent.scroll(editorElement)
+    expect(scrollFrames).toHaveLength(1)
+    act(() => scrollFrames.shift()?.(0))
+    expect(editor.getBlock).not.toHaveBeenCalled()
+    expect(overlay).toHaveStyle({ left: '36px', minHeight: '28px', top: '8px' })
+    frame.mockRestore()
 
     await act(async () => {
       editor.isEditable = true
@@ -70,36 +87,11 @@ describe('CodeBlockLanguageControls', () => {
     await waitFor(() => expect(trigger).toBeEnabled())
 
     fireEvent.click(trigger)
+    expect(await screen.findByRole('option', { name: 'Bash' })).toBeVisible()
     fireEvent.click(await screen.findByRole('option', { name: 'C++' }))
 
     expect(editor.updateBlock).toHaveBeenCalledWith('code-block-1', {
       props: { language: 'cpp' },
     })
-  })
-
-  it('anchors the live picker in an editor-local layer outside ProseMirror content', async () => {
-    const blockId = 'code-block-scroll-anchor'
-    const { componentHost, controlHost, editorElement, editorRoot } = codeBlockDom(blockId)
-    const editor = {
-      domElement: editorElement,
-      getBlock: vi.fn(() => ({ id: blockId, type: 'codeBlock' })),
-      isEditable: false,
-      onChange: vi.fn(() => vi.fn()),
-      updateBlock: vi.fn(),
-    }
-
-    render(<CodeBlockLanguageControls editor={editor as never} />, { container: componentHost })
-
-    const overlay = await waitFor(() => {
-      const control = document.querySelector(
-        `.editor__code-block-language-overlay[data-code-block-id="${blockId}"]`,
-      )
-      if (!control) throw new Error('Language overlay was unavailable')
-      return control
-    })
-
-    expect(overlay.parentElement).toHaveClass('editor__code-block-language-layer')
-    expect(editorRoot).toContainElement(overlay)
-    expect(controlHost).not.toContainElement(overlay)
   })
 })

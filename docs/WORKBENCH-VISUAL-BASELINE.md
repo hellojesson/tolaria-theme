@@ -20,7 +20,7 @@ Its SHA-256 digest at acceptance is:
 ```
 
 This document is the visual acceptance contract for the first Intelligent Command
-Center implementation. ADR-0180 and `WORKBENCH-TEMPLATES.md` remain authoritative for
+Center implementation. ADR-0184 and `WORKBENCH-TEMPLATES.md` remain authoritative for
 architecture and behavior; this baseline is authoritative for information hierarchy,
 layout intent, visual rhythm, and primary interaction prominence.
 

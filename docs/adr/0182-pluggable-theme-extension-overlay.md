@@ -1,6 +1,6 @@
 ---
 type: ADR
-id: "0178"
+id: "0182"
 title: "Pluggable theme extensions over resolved app modes"
 status: active
 date: 2026-08-28

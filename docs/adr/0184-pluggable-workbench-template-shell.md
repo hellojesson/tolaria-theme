@@ -1,6 +1,6 @@
 ---
 type: ADR
-id: "0180"
+id: "0184"
 title: "Pluggable renderer-only workbench template shell"
 status: accepted
 date: 2026-09-02

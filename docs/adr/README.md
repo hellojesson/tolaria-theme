@@ -214,7 +214,7 @@ proposed → active → superseded
 | [0154](0154-sandboxed-fenced-html-blocks.md) | Sandboxed fenced HTML blocks | active |
 | [0155](0155-html-block-source-edits-use-raw-editor.md) | HTML block source edits use the raw editor | active |
 | [0156](0156-vault-expression-html-blocks-and-line-references.md) | Vault expressions in sandboxed HTML blocks and line references | amended -> [0157](0157-opt-in-sandboxed-html-block-scripts.md) |
-| [0157](0157-opt-in-sandboxed-html-block-scripts.md) | Opt-in sandboxed scripts for HTML block dashboards | active |
+| [0157](0157-opt-in-sandboxed-html-block-scripts.md) | Opt-in sandboxed scripts for HTML block dashboards | amended -> [0178](0178-custom-protocol-for-scripted-html-blocks.md) |
 | [0158](0158-vault-write-mcp-tools-update-and-append.md) | Vault-write MCP tools: update_note and append_to_note | active |
 | [0159](0159-antigravity-permission-flags-aligned-with-cli.md) | Antigravity permission flags aligned with CLI | active |
 | [0160](0160-editable-markdown-durable-callout-blocks.md) | Editable Markdown-durable callout blocks | amended -> [0167](0167-non-collapsible-callout-scope.md) |
@@ -232,5 +232,10 @@ proposed → active → superseded
 | [0176](0176-bundled-font-assets-for-offline-startup.md) | Bundled font assets for offline startup | active |
 | [0173](0173-future-calendar-version-recovery.md) | Future calendar version rejection and recovery | active |
 | [0177](0177-writable-fallback-for-app-config.md) | Writable fallback for app config | active |
-| [0178](0178-pluggable-theme-extension-overlay.md) | Pluggable theme extension overlay | superseded → [0179](0179-local-only-editor-font-theme-overlay.md) |
-| [0179](0179-local-only-editor-font-theme-overlay.md) | Local-only editor font preferences in the theme overlay | active |
+| [0178](0178-custom-protocol-for-scripted-html-blocks.md) | Custom protocol for scripted HTML blocks | active |
+| [0179](0179-codex-approval-policy-on-request.md) | Codex approval policy aligned with current CLI | active |
+| [0180](0180-shared-cross-runtime-word-count-contract.md) | Shared cross-runtime word-count contract | active |
+| [0181](0181-shared-cross-runtime-inline-markdown-stripping-contract.md) | Shared cross-runtime inline-markdown stripping contract | active |
+| [0182](0182-pluggable-theme-extension-overlay.md) | Pluggable theme extension overlay | superseded → [0183](0183-local-only-editor-font-theme-overlay.md) |
+| [0183](0183-local-only-editor-font-theme-overlay.md) | Local-only editor font preferences in the theme overlay | active |
+| [0184](0184-pluggable-workbench-template-shell.md) | Pluggable renderer-only workbench template shell | active |

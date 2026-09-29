@@ -107,7 +107,21 @@ describe('useEditorSaveWithLinks', () => {
 
     expect(updateEntry).toHaveBeenCalledWith('/note.md', {
       outgoingLinks: ['PageA', 'PageB'],
+      wordCount: 2,
     })
+  })
+
+  it('derives live word count while edited content is dirty', () => {
+    const { result } = renderHookWithLinks()
+
+    act(() => {
+      result.current.handleContentChange('/note.md', '# Title\n\nOne two three')
+    })
+    flushDeferredMetadata()
+
+    expect(updateEntry).toHaveBeenCalledWith('/note.md', expect.objectContaining({
+      wordCount: 3,
+    }))
   })
 
   it('handleContentChange does NOT call updateEntry again when links have not changed', () => {
@@ -120,6 +134,7 @@ describe('useEditorSaveWithLinks', () => {
     expect(updateEntry).toHaveBeenCalledTimes(2)
     expect(updateEntry).toHaveBeenCalledWith('/note.md', {
       outgoingLinks: ['Alpha'],
+      wordCount: 3,
     })
     expect(updateEntry).toHaveBeenCalledWith('/note.md', {
       title: 'Note',
@@ -145,6 +160,7 @@ describe('useEditorSaveWithLinks', () => {
     expect(updateEntry).toHaveBeenCalledTimes(2)
     expect(updateEntry).toHaveBeenCalledWith('/note.md', {
       outgoingLinks: ['Alpha'],
+      wordCount: 1,
     })
     expect(updateEntry).toHaveBeenCalledWith('/note.md', {
       title: 'Note',
@@ -159,6 +175,7 @@ describe('useEditorSaveWithLinks', () => {
     expect(updateEntry).toHaveBeenCalledTimes(3)
     expect(updateEntry).toHaveBeenLastCalledWith('/note.md', {
       outgoingLinks: ['Alpha', 'Beta'],
+      wordCount: 2,
     })
   })
 
@@ -171,7 +188,7 @@ describe('useEditorSaveWithLinks', () => {
 
     flushDeferredMetadata()
 
-    expect(updateEntry).toHaveBeenCalledTimes(1)
+    expect(updateEntry).toHaveBeenCalledTimes(2)
     expect(updateEntry).toHaveBeenCalledWith('/note.md', {
       title: 'Note',
       hasH1: false,
@@ -189,6 +206,7 @@ describe('useEditorSaveWithLinks', () => {
 
     expect(updateEntry).toHaveBeenCalledWith('/note.md', {
       outgoingLinks: ['Target'],
+      wordCount: 1,
     })
   })
 
@@ -211,18 +229,21 @@ describe('useEditorSaveWithLinks', () => {
     })
   })
 
-  it('handleContentChange does NOT call updateEntry for frontmatter when unchanged', () => {
+  it('handleContentChange updates only live metadata when frontmatter is unchanged', () => {
     const { result } = renderHookWithLinks()
     const content = '---\ntype: Essay\n---\nBody text'
 
     act(() => { result.current.handleContentChange('/note.md', content) })
     flushDeferredMetadata()
-    const callCount = updateEntry.mock.calls.length
+    updateEntry.mockClear()
 
-    act(() => { result.current.handleContentChange('/note.md', content + ' more') })
+    act(() => { result.current.handleContentChange('/note.md', `${content} more`) })
     flushDeferredMetadata()
-    // Same frontmatter, only body changed — no extra updateEntry for frontmatter
-    expect(updateEntry).toHaveBeenCalledTimes(callCount)
+    expect(updateEntry).toHaveBeenCalledTimes(1)
+    expect(updateEntry).toHaveBeenCalledWith('/note.md', {
+      outgoingLinks: [],
+      wordCount: 3,
+    })
   })
 
   it('handleContentChange updates entry when type changes in frontmatter', () => {
@@ -250,6 +271,72 @@ describe('useEditorSaveWithLinks', () => {
     expect(updateEntry).toHaveBeenCalledWith('/note.md', {
       title: 'Note',
       hasH1: false,
+    })
+  })
+
+  describe('Type body template metadata', () => {
+    it('publishes an edited Type body template before deferred metadata settles', () => {
+      const { result } = renderHookWithLinks()
+
+      act(() => {
+        result.current.handleContentChange(
+          '/project.md',
+          '---\ntype: Type\n---\n# Project\n\n## Immediate template\n',
+        )
+      })
+
+      expect(updateEntry).toHaveBeenCalledWith('/project.md', {
+        template: '## Immediate template',
+      })
+    })
+
+    it('keeps a Type note body template live after editing the note', () => {
+      const { result } = renderHookWithLinks()
+
+      act(() => {
+        result.current.handleContentChange(
+          '/project.md',
+          '---\ntype: Type\n---\n# Project\n\n## Overview\n\n- [ ] First step\n',
+        )
+      })
+      flushDeferredMetadata()
+
+      expect(updateEntry).toHaveBeenCalledWith('/project.md', expect.objectContaining({
+        isA: 'Type',
+        template: '## Overview\n\n- [ ] First step',
+      }))
+    })
+
+    it('keeps an explicit Type template ahead of a template-shaped body', () => {
+      const { result } = renderHookWithLinks()
+
+      act(() => {
+        result.current.handleContentChange(
+          '/project.md',
+          '---\ntype: Type\ntemplate: Explicit template\n---\n# Project\n\n## Body template\n',
+        )
+      })
+      flushDeferredMetadata()
+
+      expect(updateEntry).toHaveBeenCalledWith('/project.md', expect.objectContaining({
+        template: 'Explicit template',
+      }))
+    })
+
+    it('does not turn descriptive Type documentation into a note template', () => {
+      const { result } = renderHookWithLinks()
+
+      act(() => {
+        result.current.handleContentChange(
+          '/project.md',
+          '---\ntype: Type\n---\n# Project\n\nProjects describe coordinated work.\n',
+        )
+      })
+      flushDeferredMetadata()
+
+      expect(updateEntry).toHaveBeenCalledWith('/project.md', expect.objectContaining({
+        template: null,
+      }))
     })
   })
 
@@ -325,6 +412,22 @@ describe('useEditorSaveWithLinks', () => {
     expect(updateEntry).toHaveBeenCalledWith(path, expected)
   })
 
+  it('derives a filename fallback title from a Windows path', () => {
+    const { result } = renderHookWithLinks()
+    const path = String.raw`D:\Projects_CC\Tolaria\Tol_V1\focus-test.md`
+
+    act(() => {
+      result.current.handleContentChange(path, '---\ntype: Note\n_display: sheet\n---\nA,B\n1,2\n')
+    })
+
+    flushDeferredMetadata()
+
+    expect(updateEntry).toHaveBeenCalledWith(path, {
+      title: 'Focus Test',
+      hasH1: false,
+    })
+  })
+
   it('defers H1 title sync updates in a transition so typing stays responsive', () => {
     const { result } = renderHookWithLinks()
 
@@ -336,7 +439,7 @@ describe('useEditorSaveWithLinks', () => {
     expect(updateEntry).not.toHaveBeenCalled()
     flushDeferredMetadata()
 
-    expect(startTransitionMock).toHaveBeenCalledTimes(1)
+    expect(startTransitionMock).toHaveBeenCalledTimes(2)
     expect(updateEntry).toHaveBeenCalledWith('/old-title.md', {
       title: 'Renamed Note',
       hasH1: true,
@@ -349,5 +452,84 @@ describe('useEditorSaveWithLinks', () => {
     // handleSave and savePendingForPath should be passed through from the mock
     expect(result.current.handleSave).toBeDefined()
     expect(result.current.savePendingForPath).toBeDefined()
+  })
+})
+
+class MetadataWorker {
+  static instances: MetadataWorker[] = []
+
+  onerror: ((event: ErrorEvent) => void) | null = null
+  onmessage: ((event: MessageEvent) => void) | null = null
+  postMessage = vi.fn()
+  terminate = vi.fn()
+
+  constructor() {
+    MetadataWorker.instances.push(this)
+  }
+}
+
+function firstMetadataWorker(): MetadataWorker {
+  const worker = MetadataWorker.instances[0]
+  if (!worker) throw new Error('Expected the metadata worker to start')
+  return worker
+}
+
+function postedMetadataRequest(worker: MetadataWorker, index: number): { requestId: number } {
+  const request = worker.postMessage.mock.calls.at(index)?.at(0) as { requestId: number } | undefined
+  if (!request) throw new Error(`Expected metadata request ${index}`)
+  return request
+}
+
+function deliverMetadata(worker: MetadataWorker, data: MessageEvent['data']): void {
+  const onmessage = worker.onmessage
+  if (!onmessage) throw new Error('Expected metadata worker message handler')
+  act(() => onmessage({ data } as MessageEvent))
+}
+
+describe('editor entry metadata worker', () => {
+  beforeEach(() => {
+    idleCallbacks = new Map()
+    MetadataWorker.instances = []
+    vi.stubGlobal('requestIdleCallback', vi.fn((callback: IdleRequestCallback) => {
+      idleCallbacks.set(1, callback)
+      return 1
+    }))
+    vi.stubGlobal('cancelIdleCallback', vi.fn())
+  })
+
+  afterEach(() => vi.unstubAllGlobals())
+
+  it('derives metadata off the main thread and ignores superseded worker responses', () => {
+    vi.stubGlobal('Worker', MetadataWorker)
+    const updateEntry = vi.fn()
+    const { result } = renderHook(() => useEditorSaveWithLinks({
+      updateEntry,
+      setTabs: vi.fn(),
+      setToastMessage: vi.fn(),
+      onAfterSave: vi.fn(),
+    }))
+
+    act(() => result.current.handleContentChange('/note.md', 'see [[Alpha]]'))
+    flushDeferredMetadata()
+
+    const worker = firstMetadataWorker()
+    const firstRequest = postedMetadataRequest(worker, 0)
+    expect(firstRequest).toMatchObject({ requestId: 1 })
+    expect(updateEntry).not.toHaveBeenCalled()
+
+    act(() => result.current.handleContentChange('/note.md', 'see [[Beta]]'))
+    deliverMetadata(worker, {
+      metadata: { outgoingLinks: ['Alpha'], wordCount: 1 },
+      requestId: firstRequest.requestId,
+    })
+    expect(updateEntry).not.toHaveBeenCalled()
+
+    flushDeferredMetadata()
+    const secondRequest = postedMetadataRequest(worker, 1)
+    deliverMetadata(worker, {
+      metadata: { outgoingLinks: ['Beta'], wordCount: 1 },
+      requestId: secondRequest.requestId,
+    })
+    expect(updateEntry).toHaveBeenCalledWith('/note.md', { outgoingLinks: ['Beta'], wordCount: 1 })
   })
 })

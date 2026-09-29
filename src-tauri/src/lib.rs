@@ -22,6 +22,7 @@ pub mod frontmatter;
 pub mod git;
 pub mod hermes_cli;
 mod hermes_discovery;
+mod html_block_protocol;
 pub mod kiro_cli;
 mod kiro_discovery;
 #[cfg(any(test, all(desktop, target_os = "linux")))]
@@ -334,6 +335,7 @@ macro_rules! app_invoke_handler {
             commands::sync_note_title,
             commands::save_image,
             commands::copy_image_to_vault,
+            commands::rename_attachment,
             commands::download_remote_image_to_vault,
             commands::delete_note,
             commands::batch_delete_notes,
@@ -402,8 +404,7 @@ fn handle_run_event(app_handle: &tauri::AppHandle, event: &tauri::RunEvent) {
 
     if let tauri::RunEvent::Exit = event {
         let state: tauri::State<'_, desktop_runtime::WsBridgeChild> = app_handle.state();
-        let mut guard = state.0.lock().unwrap();
-        desktop_runtime::stop_ws_bridge_child(&mut guard);
+        desktop_runtime::stop_ws_bridge_on_exit(&state);
     }
 }
 
@@ -412,7 +413,9 @@ pub fn run() {
     #[cfg(all(desktop, target_os = "linux"))]
     linux_appimage::apply_startup_env_overrides();
 
-    let builder = tauri::Builder::default().manage(commands::StartupTimingState::default());
+    let builder = tauri::Builder::default()
+        .register_uri_scheme_protocol("tolaria-html-block", html_block_protocol::handle_request)
+        .manage(commands::StartupTimingState::default());
 
     #[cfg(desktop)]
     let builder = with_desktop_entry_plugins(builder);

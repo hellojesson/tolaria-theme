@@ -6,6 +6,9 @@ import {
   richEditorRecoveryErrorNeedsDocumentRepair,
   type RichEditorTransformRecoveryReason,
 } from './richEditorRecoveryClassifier'
+import { createMalformedBlockClipboardRecoveryPlugin } from './richEditorMalformedClipboardRecovery'
+import { repairMalformedBlockContainers } from './richEditorMalformedBlockRecovery'
+import type { RichEditorPropRunner, RichEditorSomeProp } from './richEditorTransformRecoveryTypes'
 export { isStaleBlockReferenceError } from './richEditorRecoveryClassifier'
 
 const DISPATCH_RECOVERY_STATE_KEY = '__tolariaRichEditorTransformErrorRecovery'
@@ -19,8 +22,6 @@ const RECOVERABLE_EDITOR_HANDLER_PROPS = new Set([
 ])
 
 type RichEditorDispatch = (transaction: unknown) => unknown
-type RichEditorPropRunner<T> = (prop: T) => unknown
-type RichEditorSomeProp = <T>(propName: string, run?: RichEditorPropRunner<T>) => unknown
 type RecoverEditorDocument = () => void
 type RecoveryToken = symbol
 
@@ -157,10 +158,11 @@ function recoverAfterEditorTransformError(
 ): void {
   if (!isRecoverableEditorTransformError(error)) throw error
 
+  const reason = recoveryReason(error, transaction, view)
   if (shouldRepairEditorDocument(error)) {
     activeRecoverDocument(recoveryState)?.()
   }
-  reportRecoveredEditorTransformError(recoveryReason(error, transaction, view), error)
+  reportRecoveredEditorTransformError(reason, error)
 }
 
 function createRecoveringDispatch(
@@ -248,17 +250,25 @@ function installRecoveryState(
   return recoveryState
 }
 
-function repairEditorDocumentAfterInvalidContentError(editor: RepairableBlockNoteEditor): void {
-  if (!Array.isArray(editor.document) || typeof editor.replaceBlocks !== 'function') return
-
-  const currentBlocks = editor.document
-  const safeBlocks = repairMalformedEditorBlocks(currentBlocks)
-  if (safeBlocks === currentBlocks) return
-
+function repairEditorDocumentAfterInvalidContentError(
+  editor: RepairableBlockNoteEditor,
+  view: RichEditorRecoveryView,
+): void {
   try {
+    if (!Array.isArray(editor.document) || typeof editor.replaceBlocks !== 'function') return
+
+    const currentBlocks = editor.document
+    const safeBlocks = repairMalformedEditorBlocks(currentBlocks)
+    if (safeBlocks === currentBlocks) return
+
     editor.replaceBlocks(currentBlocks, safeBlocks)
   } catch (error) {
     console.warn('[editor] Failed to repair rich-editor document after transform error:', error)
+    try {
+      repairMalformedBlockContainers(view)
+    } catch (fallbackError) {
+      console.warn('[editor] Failed to repair malformed ProseMirror block containers:', fallbackError)
+    }
   }
 }
 
@@ -281,13 +291,16 @@ export function installRichEditorTransformErrorRecovery(
 
 export const createRichEditorTransformErrorRecoveryExtension = createExtension(({ editor }) => ({
   key: 'richEditorTransformErrorRecovery',
+  prosemirrorPlugins: [createMalformedBlockClipboardRecoveryPlugin()],
   mount: ({ signal }) => {
     const view = recoveryViewFromEditor(editor)
     if (!view) return
 
     const uninstall = installRichEditorTransformErrorRecovery(
       view,
-      { recoverDocument: () => { repairEditorDocumentAfterInvalidContentError(editor as RepairableBlockNoteEditor); } },
+      { recoverDocument: () => {
+        repairEditorDocumentAfterInvalidContentError(editor as RepairableBlockNoteEditor, view)
+      } },
     )
     signal.addEventListener('abort', uninstall, { once: true })
   },

@@ -6,7 +6,7 @@ This file records downstream changes that should be reviewed deliberately when m
 
 | Patch | Base | Purpose | Primary references |
 |---|---|---|---|
-| `FORK-THEME-001` | `v2026-08-19` | Pluggable color and editor-font theme extensions | ADR-0178, ADR-0179, `docs/THEME-EXTENSIONS.md` |
+| `FORK-THEME-001` | `v2026-08-19` | Pluggable color and editor-font theme extensions | ADR-0182, ADR-0183, `docs/THEME-EXTENSIONS.md` |
 | `FORK-UI-001` | `v2026-08-19` | Keep code-block language controls attached during zoom and scrolling | This document |
 
 ## FORK-THEME-001: extension control-color compatibility
